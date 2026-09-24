@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bravo Crime: Murder of the Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64x64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
+<meta name="theme-color" content="#000000">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#c8a04a;--blood:#8e1c24;--navy:#0a0d14;--panel:rgba(8,11,18,.86);
+    --white:#fff;--green:#1f9d5e;--red:#c0392f;--muted:#9fa9bb;--line:rgba(255,255,255,.18);
+  }
+  *{box-sizing:border-box}
+  html{background:var(--navy)}
+  html,body{width:100%;height:100%;margin:0;position:relative;overflow:hidden;color:var(--white);
+    font-family:'Open Sans',Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
+  button,a{font:inherit}
+  button:focus-visible,a:focus-visible{outline:4px solid var(--gold);outline-offset:4px}
+
+  /* ---------- Global background video (shown on every screen) ---------- */
+  #bgVideo{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;z-index:-2}
+  #bgOverlay{position:fixed;inset:0;z-index:-1;
+    background:linear-gradient(180deg,rgba(3,5,11,.35),rgba(3,5,11,.80))}
+
+  /* ---------- Screens ---------- */
+  .screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    padding:max(24px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right))
+            max(56px,calc(env(safe-area-inset-bottom) + 38px)) max(24px,env(safe-area-inset-left));
+    transition:transform .65s cubic-bezier(.22,.8,.25,1),opacity .45s;overflow:auto;background:transparent;
+    -webkit-overflow-scrolling:touch;
+    /* Stops iOS/Android from restoring a remembered scroll offset on a
+       screen that was previously scrolled. */
+    overflow-anchor:none;scroll-behavior:auto}
+  .hidden-left{transform:translateX(-105%);opacity:0;pointer-events:none}
+  .hidden-right{transform:translateX(105%);opacity:0;pointer-events:none}
+
+  /* ---------- Landing ---------- */
+  .landing-content{position:relative;z-index:1;width:min(940px,100%);text-align:center;margin:auto}
+  /* ---------- Logo (same treatment as the trivia app) ---------- */
+  .logo{display:block;max-width:min(520px,75vw);max-height:25vh;margin:0 auto clamp(4px,1vh,12px);object-fit:contain}
+  .case-logo{display:block;max-width:min(220px,46vw);max-height:12vh;margin:0 auto;object-fit:contain}
+  .solution-logo{display:block;max-width:min(240px,55vw);max-height:14vh;margin:0 auto clamp(12px,2vh,22px);object-fit:contain}
+  .archive-logo{display:block;max-width:min(220px,46vw);max-height:12vh;margin:0 auto clamp(10px,2vh,18px);object-fit:contain}
+  .brand{font-size:clamp(34px,6.4vw,82px);line-height:1;margin:0 0 10px;font-weight:800;
+    letter-spacing:.02em;text-transform:uppercase;text-shadow:0 6px 30px #000}
+  .brand .of{display:block;font-size:.34em;letter-spacing:.42em;color:var(--gold);margin:14px 0 0;font-weight:700}
+  .datestamp{color:var(--muted);letter-spacing:.24em;text-transform:uppercase;
+    font-size:clamp(11px,1.6vw,15px);margin:26px 0 0}
+  .rule{width:min(420px,70%);height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:22px auto}
+  .tagline{color:#cfd6e4;font-size:clamp(15px,2vw,21px);max-width:660px;margin:0 auto 34px;line-height:1.5}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:min(560px,100%);margin:0 auto 34px}
+  .stat{padding:14px 8px;border:1px solid var(--line);border-radius:14px;background:rgba(6,10,18,.6)}
+  .stat b{display:block;font-size:clamp(26px,4.6vw,40px);color:var(--gold);line-height:1.1}
+  .stat span{display:block;font-size:clamp(10px,1.4vw,12px);letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .landing-actions{display:flex;flex-direction:column;align-items:center;gap:14px}
+
+  /* ---------- Buttons ---------- */
+  .btn{min-height:64px;padding:16px 30px;border:2px solid var(--line);border-radius:14px;color:#fff;
+    background:rgba(10,18,32,.78);font-weight:800;cursor:pointer;letter-spacing:.04em;
+    transition:transform .18s,background .18s,border-color .18s}
+  .btn:hover:not(:disabled),.btn:focus-visible{transform:scale(1.02);border-color:var(--gold);background:#16202f}
+  .btn.primary{background:var(--gold);color:#12161f;border-color:#e8cd8b}
+  .btn.primary:hover:not(:disabled),.btn.primary:focus-visible{background:#e0bc6b}
+  .btn.watch{background:#FF004F;border-color:#c8454f;color:#fff}
+  .btn.watch:hover:not(:disabled),.btn.watch:focus-visible{background:#a82430;border-color:#ff8f98}
+  .btn.ghost{min-height:52px;padding:12px 24px;font-size:clamp(13px,1.6vw,15px);
+    background:transparent;border-color:rgba(255,255,255,.28)}
+  .btn:disabled{opacity:.45;cursor:default;transform:none}
+  .btn-lg{font-size:clamp(17px,2.2vw,22px);min-width:min(300px,80vw);text-transform:uppercase}
+
+  /* ---------- Case file ---------- */
+  #game{align-items:flex-start}
+  .case{width:min(1080px,100%);margin:auto;display:flex;flex-direction:column;gap:clamp(16px,2.4vh,26px)}
+  .case-top{display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);padding-bottom:12px}
+  .case-no{letter-spacing:.24em;text-transform:uppercase;font-size:clamp(10px,1.4vw,13px);color:var(--gold);font-weight:800}
+  .case-title{font-size:clamp(24px,3.6vw,44px);margin:6px 0 0;line-height:1.08;font-weight:800;width:100%}
+  .case-setting{color:var(--muted);font-size:clamp(12px,1.6vw,15px);font-style:italic}
+  .timer{font-variant-numeric:tabular-nums;color:var(--muted);letter-spacing:.14em;
+    font-size:clamp(12px,1.6vw,15px);font-weight:700}
+  /* Ribbon shown when playing a case from the archive rather than today's */
+  .archive-flag{display:none;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;
+    background:rgba(200,160,74,.12);border:1px solid rgba(200,160,74,.35);
+    font-size:clamp(12px,1.6vw,15px);font-weight:700;color:#e8d4a6}
+  .archive-flag.on{display:flex}
+  .setup{font-size:clamp(16px,1.95vw,21px);line-height:1.62;margin:0;background:var(--panel);
+    border-left:3px solid var(--blood);padding:clamp(16px,2.4vw,24px);border-radius:0 14px 14px 0}
+  .facts{background:rgba(8,12,20,.66);border:1px solid var(--line);border-radius:16px;padding:clamp(16px,2.4vw,24px)}
+  .facts h3,.suspects-head{margin:0 0 14px;font-size:clamp(11px,1.5vw,13px);letter-spacing:.24em;
+    text-transform:uppercase;color:var(--gold);font-weight:800}
+  .facts ol{margin:0;padding-left:1.35em}
+  .facts li{font-size:clamp(14.5px,1.8vw,18.5px);line-height:1.58;margin-bottom:11px}
+  .facts li:last-child{margin-bottom:0}
+
+  .suspects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .suspect{position:relative;text-align:left;padding:18px 20px 18px 62px;border:2px solid var(--line);
+    border-radius:16px;background:rgba(10,16,28,.8);color:#fff;cursor:pointer;min-height:110px;
+    transition:transform .18s,background .18s,border-color .18s;
+    opacity:0;transform:translateY(24px);animation:cardIn .45s forwards}
+  .suspect:nth-child(2){animation-delay:.07s}.suspect:nth-child(3){animation-delay:.14s}.suspect:nth-child(4){animation-delay:.21s}
+  @keyframes cardIn{to{opacity:1;transform:none}}
+  .suspect:hover:not(:disabled),.suspect:focus-visible{transform:scale(1.015);border-color:var(--gold);background:#16202f}
+  .suspect:disabled{cursor:default}
+  .suspect .letter{position:absolute;left:18px;top:18px;width:30px;height:30px;border-radius:50%;
+    display:grid;place-items:center;background:var(--gold);color:#12161f;font-weight:800;font-size:15px}
+  .suspect .name{display:block;font-weight:800;font-size:clamp(16px,2vw,21px);margin-bottom:2px}
+  .suspect .role{display:block;color:var(--muted);font-size:clamp(12.5px,1.55vw,15px);margin-bottom:10px;font-style:italic}
+  .suspect .says{display:block;font-size:clamp(14px,1.75vw,17.5px);line-height:1.52;color:#e6ebf5}
+  .suspect.guilty{background:rgba(160,30,38,.42);border-color:#e0616a}
+  .suspect.cleared{opacity:.62}
+  .suspect.chosen{box-shadow:0 0 0 3px var(--gold) inset}
+  .suspect .verdict{position:absolute;right:16px;top:16px;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;font-weight:800;padding:5px 10px;border-radius:999px}
+  .suspect.guilty .verdict{background:var(--red);color:#fff}
+  .suspect.cleared .verdict{background:rgba(255,255,255,.14);color:#cfd6e4}
+
+  .accuse-hint{text-align:center;color:var(--muted);font-size:clamp(12.5px,1.6vw,15px);letter-spacing:.08em}
+
+  /* ---------- Solution ---------- */
+  .solution{background:var(--panel);border:1px solid var(--line);border-radius:18px;
+    padding:clamp(20px,3vw,32px);animation:cardIn .5s forwards;scroll-margin-top:12px}
+  .verdict-line{font-size:clamp(22px,3.4vw,38px);font-weight:800;margin:0 0 6px;line-height:1.15}
+  .verdict-line.win{color:var(--green)}.verdict-line.lose{color:var(--red)}
+  .killer-name{font-size:clamp(17px,2.2vw,23px);margin:0 0 20px;color:var(--gold);font-weight:800}
+  .solution h4{margin:20px 0 8px;font-size:clamp(11px,1.5vw,13px);letter-spacing:.2em;
+    text-transform:uppercase;color:var(--gold)}
+  .solution p{margin:0;font-size:clamp(14.5px,1.8vw,18px);line-height:1.6;color:#e6ebf5}
+  .solution ul{margin:0;padding-left:1.25em}
+  .solution li{font-size:clamp(14px,1.75vw,17px);line-height:1.55;margin-bottom:9px;color:#e6ebf5}
+  .streak-banner{display:flex;align-items:center;justify-content:center;gap:10px;margin:24px 0 0;
+    padding:16px;border-radius:14px;background:rgba(200,160,74,.12);border:1px solid rgba(200,160,74,.35);
+    font-weight:800;font-size:clamp(15px,2vw,20px);flex-wrap:wrap;text-align:center}
+  .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,3vw,34px);margin-top:28px}
+  .actions .btn{display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center}
+  .next-in{text-align:center;color:var(--muted);margin-top:26px;padding-bottom:clamp(14px,2.5vh,26px);letter-spacing:.16em;
+    text-transform:uppercase;font-size:clamp(10.5px,1.4vw,13px);font-variant-numeric:tabular-nums}
+
+  /* ---------- Archive (previous cases) ---------- */
+  #archive{align-items:flex-start}
+  .archive-wrap{width:min(1180px,100%);margin:auto;display:flex;flex-direction:column;gap:clamp(16px,2.4vh,24px)}
+  .archive-head{text-align:center}
+  .archive-head h2{font-size:clamp(26px,4vw,46px);margin:0 0 8px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+  .archive-head p{color:var(--muted);margin:0;font-size:clamp(13px,1.7vw,16px)}
+  .archive-stats{display:flex;justify-content:center;gap:clamp(14px,3vw,34px);flex-wrap:wrap;
+    padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .archive-stats div{text-align:center}
+  .archive-stats b{display:block;color:var(--gold);font-size:clamp(20px,3vw,30px);line-height:1.2}
+  .archive-stats span{font-size:clamp(9.5px,1.3vw,11.5px);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+  .case-card{position:relative;text-align:left;padding:18px 18px 52px;border:2px solid var(--line);
+    border-radius:16px;background:rgba(10,16,28,.8);color:#fff;cursor:pointer;min-height:132px;
+    transition:transform .18s,background .18s,border-color .18s}
+  .case-card:hover,.case-card:focus-visible{transform:scale(1.02);border-color:var(--gold);background:#16202f}
+  .case-card .cc-no{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  .case-card .cc-title{display:block;font-weight:800;font-size:clamp(16px,1.9vw,20px);margin:8px 0 4px;line-height:1.2}
+  .case-card .cc-setting{display:block;color:var(--muted);font-size:clamp(12px,1.5vw,14px);font-style:italic;line-height:1.35}
+  .case-card .cc-status{position:absolute;left:18px;bottom:16px;font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;font-weight:800;padding:5px 11px;border-radius:999px}
+  .cc-status.solved{background:rgba(31,157,94,.25);color:#7ff0b6;border:1px solid rgba(31,157,94,.6)}
+  .cc-status.missed{background:rgba(192,57,47,.25);color:#ffa9a2;border:1px solid rgba(192,57,47,.6)}
+  .cc-status.unplayed{background:rgba(255,255,255,.1);color:#cfd6e4;border:1px solid var(--line)}
+  .cc-status.today{background:var(--gold);color:#12161f;border:1px solid #e8cd8b}
+  .case-card.is-today{border-color:rgba(200,160,74,.7)}
+  .archive-foot{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,3vw,28px);
+    margin-top:8px;padding-bottom:clamp(14px,2.5vh,26px)}
+  .archive-foot .btn{display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center}
+
+  /* ---------- Sound toggle ---------- */
+  #soundBtn{position:fixed;top:max(14px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));
+    z-index:20;width:52px;height:52px;min-height:0;padding:0;border-radius:50%;display:grid;
+    place-items:center;background:rgba(8,12,20,.8);font-size:21px;line-height:1}
+
+  /* ---------- Footer / loader / error ---------- */
+  #copyright{position:fixed;left:0;right:0;bottom:0;z-index:6;text-align:center;
+    font-size:clamp(10px,1.3vw,13px);color:rgba(255,255,255,.6);
+    padding:8px 12px calc(env(safe-area-inset-bottom) + 8px);pointer-events:none;text-shadow:0 1px 4px #000}
+  #loader{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;display:grid;place-items:center;
+    grid-auto-flow:row;gap:26px;background:#05070d;z-index:9999;overflow:hidden;transition:opacity .5s ease;
+    padding:24px;text-align:center}
+  #loader.hide{opacity:0;pointer-events:none}
+  .spinner{position:relative;width:clamp(110px,18vw,160px);height:clamp(110px,18vw,160px);display:grid;place-items:center}
+  .spinner .ring{position:absolute;inset:0;border-radius:50%;border:5px solid rgba(200,160,74,.16);
+    border-top-color:var(--gold);animation:spin 1s linear infinite}
+  .spinner .spinner-logo{width:62%;height:62%;object-fit:contain;animation:pulse 1.6s ease-in-out infinite}
+  .loading-text{font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#9fa9bb;font-size:clamp(11px,1.5vw,14px)}
+  .load-error{max-width:620px;color:#e6ebf5;line-height:1.6;font-size:clamp(14px,1.9vw,17px)}
+  .load-error b{color:var(--gold);display:block;margin-bottom:10px;font-size:clamp(17px,2.4vw,22px)}
+  .load-error code{background:rgba(255,255,255,.08);padding:2px 7px;border-radius:5px;font-size:.92em}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pulse{0%,100%{transform:scale(.9);opacity:.8}50%{transform:scale(1);opacity:1}}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:760px){
+    .suspects,.actions,.stats,.archive-foot{grid-template-columns:1fr}
+    .stats{gap:10px}
+    .screen{padding:18px 16px 52px}
+    .suspect{min-height:0;padding:16px 18px 16px 56px}
+    .archive-grid{grid-template-columns:1fr}
+    #soundBtn{width:46px;height:46px;font-size:19px}
+  }
+  /* Smart TV / very large screens: overscan-safe padding and larger hit targets */
+  @media(min-width:1600px){
+    .screen{padding:5vh 7vw 7vh}
+    .btn{min-height:78px}
+    .facts li,.suspect .says{line-height:1.6}
+    .archive-grid{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+  }
+  @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- Global background video (behind every screen) -->
+<video id="bgVideo" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+  <source src="5582521-hd_1920_1080_24fps.mp4" type="video/mp4">
+</video>
+<div id="bgOverlay"></div>
+
+<!-- Ominous background score -->
+<audio id="bgm" loop autoplay muted preload="auto">
+  <source src="echoes_of_lumen-ominous-music-595730.mp3" type="audio/mpeg">
+</audio>
+
+<button id="soundBtn" class="btn" type="button" aria-label="Toggle music">&#9835;</button>
+
+<!-- Loading overlay -->
+<div id="loader" role="status" aria-live="polite" aria-label="Loading">
+  <div class="spinner"><div class="ring"></div><img class="spinner-logo" src="logo_white.png" alt=""></div>
+  <div class="loading-text">Opening the case file&hellip;</div>
+</div>
+
+<!-- ============ LANDING ============ -->
+<section id="landing" class="screen">
+  <main class="landing-content">
+    <img class="logo" src="logo_white.png" alt="Show logo">
+    <h1 class="brand">Murder<span class="of">of the day</span></h1>
+    <div class="rule"></div>
+    <p class="datestamp" id="landingDate"></p>
+    <p class="tagline" id="landingTag">One case. Four suspects. Catch the killer.</p>
+    <div class="stats">
+      <div class="stat"><b id="statStreak">0</b><span>Streak</span></div>
+      <div class="stat"><b id="statBest">0</b><span>Best</span></div>
+      <div class="stat"><b id="statSolved">0/0</b><span>Solved</span></div>
+    </div>
+    <div class="landing-actions">
+      <button id="startBtn" class="btn primary btn-lg" type="button">Open case file</button>
+      <button id="landingArchiveBtn" class="btn ghost" type="button">Previous cases</button>
+    </div>
+  </main>
+</section>
+
+<!-- ============ GAME ============ -->
+<section id="game" class="screen hidden-right">
+  <main class="case">
+    <img class="case-logo" src="logo_white.png" alt="Show logo">
+    <div class="archive-flag" id="archiveFlag"></div>
+    <header class="case-top">
+      <div>
+        <div class="case-no" id="caseNo"></div>
+        <h2 class="case-title" id="caseTitle"></h2>
+        <div class="case-setting" id="caseSetting"></div>
+      </div>
+      <div class="timer" id="timer">0:00</div>
+    </header>
+    <p class="setup" id="caseSetup"></p>
+    <section class="facts"><h3>Established at the inquest</h3><ol id="caseFacts"></ol></section>
+    <section>
+      <h3 class="suspects-head">The four suspects &mdash; who is the killer?</h3>
+      <div class="suspects" id="suspectList"></div>
+    </section>
+    <p class="accuse-hint" id="accuseHint">Select a suspect to make your accusation. You get one guess.</p>
+    <div id="solutionSlot"></div>
+  </main>
+</section>
+
+<!-- ============ ARCHIVE ============ -->
+<section id="archive" class="screen hidden-right">
+  <main class="archive-wrap">
+    <img class="archive-logo" src="logo_white.png" alt="Show logo">
+    <div class="archive-head">
+      <h2>The Case Files</h2>
+      <p>Every case from day one. Play the ones you missed, or revisit a verdict.</p>
+    </div>
+    <div class="archive-stats">
+      <div><b id="arcSolved">0</b><span>Solved</span></div>
+      <div><b id="arcPlayed">0</b><span>Played</span></div>
+      <div><b id="arcOpen">0</b><span>Still open</span></div>
+    </div>
+    <div class="archive-grid" id="archiveGrid"></div>
+    <div class="archive-foot">
+      <button id="arcHomeBtn" class="btn" type="button">Back to the file room</button>
+      <a id="arcWatchBtn" class="btn watch" href="#" target="_blank" rel="noopener">Watch Crime now on 7+</a>
+    </div>
+  </main>
+</section>
+
+<footer id="copyright">&copy; <span id="year"></span> NBCUniversal &middot; A new case every day</footer>
+
+<script>
+/* ======================================================================
+   MURDER OF THE DAY
+   - Puzzles are loaded from an external JSON file (DATA_URL).
+   - The case is chosen by date: day 1 = START_DATE, then wrapping
+     through the set once every puzzle has been used.
+   - Results, wins and streak are persisted to localStorage.
+   - One guess per case. Today's case counts towards the streak;
+     archive cases are recorded and counted, but never alter the streak.
+   ====================================================================== */
+
+const DATA_URL   = 'murder_of_the_day_31.json';  // sits beside this HTML file
+const START_DATE = '2026-09-10';                 // day 1 of the rotation
+const STORE_KEY  = 'motd.v1';
+const WATCH_URL  = 'https://threenow.co.nz/';      // "Watch Crime now on 7+"
+
+/* ---------- Date helpers (all local-midnight based, no UTC drift) ---------- */
+const MS_DAY = 86400000;
+const localMidnight = d => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+const parseISO = s => { const p = s.split('-').map(Number); return new Date(p[0], p[1]-1, p[2]).getTime(); };
+function toISO(d){
+  const p = n => String(n).padStart(2,'0');
+  return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate());
+}
+const daysSinceStart = date => Math.floor((localMidnight(date) - parseISO(START_DATE)) / MS_DAY);
+const dayNumberFor   = date => daysSinceStart(date) + 1;
+
+/* Day number -> the Date and ISO string for that day, and its puzzle.
+   Day 1 is START_DATE, so day N is START_DATE + (N-1) days. */
+const dateForDay = n => new Date(parseISO(START_DATE) + (n - 1) * MS_DAY);
+const isoForDay  = n => toISO(dateForDay(n));
+const puzzleForDay = n => puzzles[((n - 1) % puzzles.length + puzzles.length) % puzzles.length];
+
+/* ---------- Storage ---------- */
+const blankStore = () => ({ results:{}, streak:0, best:0, played:0, wins:0, lastPlayedISO:null, muted:false });
+function loadStore(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    return raw ? Object.assign(blankStore(), JSON.parse(raw)) : blankStore();
+  }catch(e){ return blankStore(); }          // private mode / storage disabled
+}
+function saveStore(s){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }catch(e){} }
+
+/* A streak only continues if the previous play was the day before.
+   `affectsStreak` is false for archive plays, so catching up on old
+   cases can never inflate - or reset - the daily streak. */
+function recordResult(store, iso, puzzleId, guess, correct, affectsStreak){
+  if(store.results[iso]) return store;       // that case is already played
+  if(affectsStreak){
+    const yesterdayISO = toISO(new Date(parseISO(iso) - MS_DAY));
+    if(correct){
+      store.streak = (store.lastPlayedISO === yesterdayISO && store.streak > 0) ? store.streak + 1 : 1;
+    }else{
+      store.streak = 0;
+    }
+    store.best = Math.max(store.best, store.streak);
+    store.lastPlayedISO = iso;
+  }
+  if(correct) store.wins++;
+  store.played++;
+  store.results[iso] = { id:puzzleId, guess:guess, correct:correct, archive:!affectsStreak };
+  saveStore(store);
+  return store;
+}
+function displayStreak(store, todayISO){
+  if(!store.lastPlayedISO) return 0;
+  const yesterdayISO = toISO(new Date(parseISO(todayISO) - MS_DAY));
+  return (store.lastPlayedISO === todayISO || store.lastPlayedISO === yesterdayISO) ? store.streak : 0;
+}
+
+/* ---------- State ---------- */
+const $ = s => document.querySelector(s);
+const today    = new Date();
+const todayISO = toISO(today);
+let store      = loadStore();
+let puzzles = [];                 // full list from the JSON file
+let todayDayNumber = 1;           // day number for the live daily case
+
+/* The case currently on screen - today's, or one pulled from the archive. */
+let active = { puzzle:null, dayNumber:0, iso:'', isToday:true };
+let locked = false;
+let timerId = null, elapsed = 0, countdownId = null;
+
+const esc = str => String(str).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- Scroll + focus helpers ----------
+   Calling .focus() makes the browser scroll the element into view, which is
+   what was yanking the page around on mobile. Every focus call below is
+   therefore guarded: it uses preventScroll, and is skipped entirely on
+   touch devices, where there is no keyboard/remote to serve anyway. */
+const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+function softFocus(el){
+  if(!el || isTouch) return;
+  try{ el.focus({ preventScroll:true }); }
+  catch(e){ /* older browsers ignore the option - skip rather than jump */ }
+}
+
+/* Pin a scrolling screen to the top and hold it there for a few frames,
+   because a CSS transition plus late-loading images can otherwise nudge
+   the offset after we have already reset it. */
+function pinToTop(el){
+  if(!el) return;
+  let frames = 0;
+  const hold = () => {
+    el.scrollTop = 0;
+    if(++frames < 8) requestAnimationFrame(hold);
+  };
+  hold();
+  setTimeout(() => { el.scrollTop = 0; }, 120);
+  setTimeout(() => { el.scrollTop = 0; }, 420);
+}
+
+/* Scroll the case screen so the solution panel sits at the top of the view,
+   using the container's own coordinates rather than scrollIntoView, so
+   nothing else on the page can hijack the final position. */
+function scrollToSolution(){
+  const screen = $('#game');
+  const panel  = $('#solutionSlot');
+  if(!screen || !panel) return;
+  const go = () => {
+    const target = Math.max(0, panel.offsetTop - 12);
+    try{ screen.scrollTo({ top:target, behavior:'smooth' }); }
+    catch(e){ screen.scrollTop = target; }
+  };
+  requestAnimationFrame(() => requestAnimationFrame(go));
+}
+
+/* ---------- Load the puzzle data ---------- */
+async function loadPuzzles(){
+  const res = await fetch(DATA_URL, { cache:'no-cache' });
+  if(!res.ok) throw new Error('HTTP ' + res.status);
+  const data = await res.json();
+  const list = Array.isArray(data) ? data : data.puzzles;
+  if(!Array.isArray(list) || !list.length) throw new Error('No puzzles found in ' + DATA_URL);
+  return list;
+}
+function showLoadError(err){
+  $('#loader').innerHTML =
+    '<div class="load-error">' +
+      '<b>Case file unavailable</b>' +
+      'Could not load <code>' + esc(DATA_URL) + '</code> (' + esc(err.message) + ').<br><br>' +
+      'Make sure the JSON file sits in the same folder as this page, and that you are opening it ' +
+      'over <code>http://</code> rather than <code>file://</code> &mdash; browsers block local file ' +
+      'requests. A quick local server: <code>python -m http.server</code>' +
+    '</div>';
+}
+
+/* ---------- Landing ---------- */
+function paintLanding(){
+  $('#landingDate').textContent = today.toLocaleDateString(undefined,
+    { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  $('#statStreak').textContent = displayStreak(store, todayISO);
+  $('#statBest').textContent   = store.best;
+  $('#statSolved').textContent = store.wins + '/' + store.played;
+
+  const done = store.results[todayISO];
+  if(done){
+    $('#startBtn').textContent = 'Review today\u2019s case';
+    $('#landingTag').textContent = done.correct
+      ? 'You named the killer today. Come back tomorrow for a new case.'
+      : 'Today\u2019s killer walked free. Come back tomorrow for a new case.';
+  }else{
+    $('#startBtn').textContent = 'Open case file';
+    $('#landingTag').textContent = 'One case. Four suspects. Catch the killer.';
+  }
+}
+
+/* ---------- Case file ---------- */
+function paintCase(){
+  const p = active.puzzle;
+  $('#caseNo').textContent      = 'Case No. ' + String(active.dayNumber).padStart(3,'0') + ' \u00B7 ' + p.id;
+  $('#caseTitle').textContent   = p.title;
+  $('#caseSetting').textContent = p.setting;
+  $('#caseSetup').textContent   = p.setup;
+  $('#caseFacts').innerHTML     = p.facts.map(f => '<li>' + esc(f) + '</li>').join('');
+  $('#suspectList').innerHTML   = p.suspects.map(s =>
+      '<button class="suspect" type="button" data-id="' + esc(s.id) + '">' +
+        '<span class="letter">' + esc(s.id) + '</span>' +
+        '<span class="verdict"></span>' +
+        '<span class="name">' + esc(s.name) + '</span>' +
+        '<span class="role">' + esc(s.role) + '</span>' +
+        '<span class="says">\u201C' + esc(s.statement) + '\u201D</span>' +
+      '</button>').join('');
+  document.querySelectorAll('.suspect').forEach(b =>
+    b.addEventListener('click', () => accuse(b.dataset.id)));
+
+  // Reset the screen furniture each time a case is opened.
+  $('#solutionSlot').innerHTML = '';
+  $('#accuseHint').style.display = '';
+  $('#timer').style.display = '';
+  $('#timer').textContent = '0:00';
+
+  // Flag archive cases so the player knows this one is out of the past.
+  const flag = $('#archiveFlag');
+  if(active.isToday){
+    flag.classList.remove('on');
+    flag.textContent = '';
+  }else{
+    flag.classList.add('on');
+    flag.textContent = '\u{1F5C3} From the archive \u00B7 ' +
+      dateForDay(active.dayNumber).toLocaleDateString(undefined,
+        { weekday:'long', day:'numeric', month:'long', year:'numeric' }) +
+      ' \u00B7 does not affect your streak';
+  }
+}
+
+function startTimer(){
+  clearInterval(timerId);
+  elapsed = 0;
+  timerId = setInterval(() => {
+    elapsed++;
+    $('#timer').textContent = Math.floor(elapsed/60) + ':' + String(elapsed%60).padStart(2,'0');
+  }, 1000);
+}
+
+/* ---------- Accusation ---------- */
+function accuse(id){
+  if(locked) return;
+  locked = true;
+  clearInterval(timerId);
+  const correct = (id === active.puzzle.solution.killer);
+  store = recordResult(store, active.iso, active.puzzle.id, id, correct, active.isToday);
+  revealVerdicts(id);
+  renderSolution(id, correct);
+  scrollToSolution();
+}
+
+function revealVerdicts(chosenId){
+  const killer = active.puzzle.solution.killer;
+  document.querySelectorAll('.suspect').forEach(b => {
+    const id = b.dataset.id;
+    b.disabled = true;
+    b.classList.add(id === killer ? 'guilty' : 'cleared');
+    if(id === chosenId) b.classList.add('chosen');
+    b.querySelector('.verdict').textContent =
+      id === killer ? 'Guilty' : (id === chosenId ? 'Your guess' : 'Cleared');
+  });
+  $('#accuseHint').style.display = 'none';
+}
+
+function renderSolution(chosenId, correct){
+  const sol  = active.puzzle.solution;
+  const byId = {};
+  active.puzzle.suspects.forEach(s => byId[s.id] = s);
+  const liveStreak = displayStreak(store, todayISO);
+
+  // Today's case reports the streak; an archive case reports the running tally.
+  const banner = active.isToday
+    ? (correct ? '\u{1F525} Streak: ' + liveStreak + (liveStreak > 1 ? ' days' : ' day')
+               : 'Streak reset \u00B7 Best: ' + store.best) +
+      ' \u00B7 Solved ' + store.wins + ' of ' + store.played
+    : '\u{1F5C3} Archive case \u00B7 streak untouched \u00B7 Solved ' + store.wins + ' of ' + store.played;
+
+  $('#solutionSlot').innerHTML =
+    '<section class="solution">' +
+      '<img class="solution-logo" src="logo_white.png" alt="Show logo">' +
+      '<p class="verdict-line ' + (correct ? 'win' : 'lose') + '">' +
+        (correct ? 'Case solved.' : 'Wrong suspect.') + '</p>' +
+      '<p class="killer-name">The killer was ' + esc(sol.killer) + ' \u2014 ' + esc(sol.name) + '</p>' +
+      '<h4>The contradiction</h4><p>' + esc(sol.key_contradiction) + '</p>' +
+      '<h4>Why</h4><p>' + esc(sol.reasoning) + '</p>' +
+      '<h4>How the others were cleared</h4><ul>' +
+        sol.exonerations.map(e =>
+          '<li><b>' + esc(e.id) + ' \u2014 ' + esc(byId[e.id] ? byId[e.id].name : '') + ':</b> ' +
+          esc(e.why) + '</li>').join('') +
+      '</ul>' +
+      '<div class="streak-banner">' + banner + '</div>' +
+      '<div class="actions">' +
+        '<button id="shareBtn" class="btn" type="button">Share result</button>' +
+        '<button id="archiveBtn" class="btn" type="button">Play previous cases</button>' +
+        '<a id="watchBtn" class="btn watch" href="' + WATCH_URL + '" target="_blank" rel="noopener">' +
+          'Watch Crime now on ThreeNow</a>' +
+        '<button id="homeBtn" class="btn primary" type="button">Back to the file room</button>' +
+      '</div>' +
+      (active.isToday
+        ? '<p class="next-in">Next case in <span id="countdown">--:--:--</span></p>'
+        : '<p class="next-in">Case ' + String(active.dayNumber).padStart(3,'0') + ' closed</p>') +
+    '</section>';
+
+  $('#shareBtn').addEventListener('click', shareResult);
+  $('#homeBtn').addEventListener('click', goHome);
+  $('#archiveBtn').addEventListener('click', () => openArchive(true));
+  if(active.isToday) startCountdown();
+}
+
+/* Replay a finished case read-only - no second guess allowed. */
+function restoreCompleted(){
+  const done = store.results[active.iso];
+  locked = true;
+  $('#timer').style.display = 'none';
+  revealVerdicts(done.guess);
+  renderSolution(done.guess, done.correct);
+}
+
+/* ---------- Share ----------
+   navigator.share and navigator.clipboard are both restricted to secure
+   contexts (https or localhost), so this degrades through three fallbacks
+   and will still work from file:// or a plain http:// LAN address. */
+async function shareResult(){
+  const done = store.results[active.iso];
+  if(!done) return;
+  const text = 'Murder of the Day #' + active.dayNumber + '\n' +
+    (done.correct ? '\u{1F50E} Killer named on the first guess' : '\u{1F480} The killer walked free') +
+    (active.isToday ? '\n\u{1F525} Streak: ' + displayStreak(store, todayISO) : '\n\u{1F5C3} Archive case');
+
+  const isWeb = location.protocol === 'http:' || location.protocol === 'https:';
+  const payload = isWeb ? text + '\n' + location.href : text;
+
+  if(navigator.share && isWeb){
+    try{
+      await navigator.share({ title:'Murder of the Day', text:text, url:location.href });
+      return;
+    }catch(err){
+      if(err.name === 'AbortError') return;      // user dismissed - not a failure
+    }
+  }
+  if(navigator.clipboard && window.isSecureContext){
+    try{
+      await navigator.clipboard.writeText(payload);
+      flashShareBtn('Result copied!');
+      return;
+    }catch(err){ /* fall through */ }
+  }
+  if(legacyCopy(payload)){ flashShareBtn('Result copied!'); return; }
+  window.prompt('Copy your result:', payload);
+}
+function legacyCopy(str){
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = str;
+    ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, str.length);       // iOS needs the explicit range
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  }catch(e){ return false; }
+}
+function flashShareBtn(msg){
+  const b = $('#shareBtn');
+  if(!b) return;
+  b.textContent = msg;
+  setTimeout(() => { const s = $('#shareBtn'); if(s) s.textContent = 'Share result'; }, 2500);
+}
+
+/* ---------- Countdown to local midnight ---------- */
+function startCountdown(){
+  clearInterval(countdownId);
+  const tick = () => {
+    const now  = new Date();
+    const diff = Math.max(0, localMidnight(now) + MS_DAY - now.getTime());
+    const el   = $('#countdown');
+    if(el) el.textContent = [Math.floor(diff/3600000), Math.floor(diff%3600000/60000), Math.floor(diff%60000/1000)]
+      .map(n => String(n).padStart(2,'0')).join(':');
+  };
+  tick();
+  countdownId = setInterval(tick, 1000);
+}
+
+/* ---------- Archive ---------- */
+function buildArchive(){
+  const cards = [];
+  let solved = 0, played = 0, open = 0;
+
+  // Newest first, down to day 1.
+  for(let n = todayDayNumber; n >= 1; n--){
+    const iso  = isoForDay(n);
+    const p    = puzzleForDay(n);
+    const done = store.results[iso];
+    const isToday = (n === todayDayNumber);
+
+    let cls, label;
+    if(done){
+      played++;
+      if(done.correct){ solved++; cls = 'solved'; label = 'Solved'; }
+      else            { cls = 'missed'; label = 'Killer escaped'; }
+    }else if(isToday){
+      open++; cls = 'today'; label = 'Today\u2019s case';
+    }else{
+      open++; cls = 'unplayed'; label = 'Unsolved \u00B7 play now';
+    }
+
+    const dateLabel = dateForDay(n).toLocaleDateString(undefined,
+      { day:'numeric', month:'short', year:'numeric' });
+
+    cards.push(
+      '<button class="case-card' + (isToday ? ' is-today' : '') + '" type="button" data-day="' + n + '">' +
+        '<span class="cc-no">Case ' + String(n).padStart(3,'0') + ' \u00B7 ' + esc(dateLabel) + '</span>' +
+        '<span class="cc-title">' + esc(p.title) + '</span>' +
+        '<span class="cc-setting">' + esc(p.setting) + '</span>' +
+        '<span class="cc-status ' + cls + '">' + label + '</span>' +
+      '</button>'
+    );
+  }
+
+  $('#archiveGrid').innerHTML = cards.join('');
+  $('#arcSolved').textContent = solved;
+  $('#arcPlayed').textContent = played;
+  $('#arcOpen').textContent   = open;
+
+  document.querySelectorAll('.case-card').forEach(b =>
+    b.addEventListener('click', () => openDay(Number(b.dataset.day), true)));
+}
+
+/* ---------- Opening a case (today's or any past day) ---------- */
+function openDay(n, fromArchive){
+  clearInterval(countdownId);
+
+  active = {
+    puzzle: puzzleForDay(n),
+    dayNumber: n,
+    iso: isoForDay(n),
+    isToday: (n === todayDayNumber)
+  };
+  locked = false;
+
+  paintCase();
+
+  // Slide in from whichever screen we were on.
+  const from = fromArchive ? $('#archive') : $('#landing');
+  from.classList.add('hidden-left');
+  $('#game').classList.remove('hidden-right','hidden-left');
+
+  // Hold the case screen at the top through the slide transition.
+  pinToTop($('#game'));
+
+  if(store.results[active.iso]){
+    restoreCompleted();
+    // A finished case opens on the verdict, which is what the player wants to see.
+    scrollToSolution();
+  }else{
+    startTimer();
+  }
+}
+
+function openArchive(fromGame){
+  clearInterval(countdownId);
+  buildArchive();
+  if(fromGame){
+    $('#game').classList.add('hidden-left');
+  }else{
+    $('#landing').classList.add('hidden-left');
+  }
+  $('#archive').classList.remove('hidden-right','hidden-left');
+  pinToTop($('#archive'));
+  setTimeout(() => softFocus(document.querySelector('.case-card')), 500);
+}
+
+function goHome(){
+  clearInterval(countdownId);
+  clearInterval(timerId);
+  paintLanding();
+  $('#game').classList.add('hidden-right');
+  $('#game').classList.remove('hidden-left');
+  $('#archive').classList.add('hidden-right');
+  $('#archive').classList.remove('hidden-left');
+  $('#landing').classList.remove('hidden-left');
+  pinToTop($('#landing'));
+  setTimeout(() => softFocus($('#startBtn')), 450);
+}
+
+/* ---------- Background video: keep it running ----------
+   Muted autoplay is permitted everywhere, but some TV and mobile browsers
+   still stall it, and backgrounded tabs pause it. Retry rather than assume. */
+const bgv = $('#bgVideo');
+function kickVideo(){
+  if(!bgv) return;
+  bgv.muted = true;                 // required for autoplay to be allowed
+  if(bgv.paused){ const p = bgv.play(); if(p && p.catch) p.catch(function(){}); }
+}
+kickVideo();
+['loadedmetadata','canplay','stalled','pause'].forEach(e => bgv.addEventListener(e, kickVideo));
+document.addEventListener('visibilitychange', () => { if(!document.hidden) kickVideo(); });
+
+/* ---------- Music: autoplay muted, then unmute at the first opportunity ----------
+   No browser will start audible sound before the user interacts with the page.
+   So the track is STARTED muted straight away (which is allowed) and simply
+   unmuted on the first touch, click, key or remote press. */
+const bgm = $('#bgm');
+bgm.volume = 0.35;
+let musicOn = !store.muted;
+function paintSoundBtn(){
+  $('#soundBtn').innerHTML = musicOn ? '&#9835;' : '&#128263;';
+  $('#soundBtn').setAttribute('aria-label', musicOn ? 'Mute music' : 'Unmute music');
+}
+function primeMusic(){
+  if(!musicOn) return;
+  bgm.muted = true;
+  const p = bgm.play();
+  if(p && p.catch) p.catch(function(){});
+}
+function unmuteMusic(){
+  if(!musicOn) return;
+  bgm.muted = false;
+  if(bgm.paused){ const p = bgm.play(); if(p && p.catch) p.catch(function(){}); }
+}
+primeMusic();
+bgm.addEventListener('canplay', primeMusic);
+['pointerdown','touchstart','mousedown','keydown','click'].forEach(evt =>
+  window.addEventListener(evt, () => { unmuteMusic(); kickVideo(); }, { passive:true }));
+document.addEventListener('visibilitychange', () => { if(!document.hidden) unmuteMusic(); });
+$('#soundBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  musicOn = !musicOn;
+  store.muted = !musicOn; saveStore(store);
+  if(musicOn){ bgm.muted = false; const p = bgm.play(); if(p && p.catch) p.catch(function(){}); }
+  else bgm.pause();
+  paintSoundBtn();
+});
+
+/* ---------- TV remote / keyboard navigation ----------
+   Arrow keys move focus between controls. scrollIntoView is called here
+   deliberately, because a remote user needs to see what they just focused -
+   but only in response to an actual key press, never automatically. */
+document.addEventListener('keydown', e => {
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].indexOf(e.key) === -1) return;
+  const focusables = [].slice.call(document.querySelectorAll(
+    '.screen:not(.hidden-left):not(.hidden-right) button:not(:disabled), ' +
+    '.screen:not(.hidden-left):not(.hidden-right) a.btn, #soundBtn'));
+  if(!focusables.length) return;
+  const i = focusables.indexOf(document.activeElement);
+  e.preventDefault();
+  let next;
+  if(i === -1){ next = focusables[0]; }
+  else{
+    const fwd = (e.key === 'ArrowDown' || e.key === 'ArrowRight');
+    next = focusables[(i + (fwd ? 1 : -1) + focusables.length) % focusables.length];
+  }
+  if(!next) return;
+  try{ next.focus({ preventScroll:true }); }catch(err){ next.focus(); }
+  if(next.scrollIntoView) next.scrollIntoView({ block:'nearest', behavior:'smooth' });
+});
+
+/* ---------- Boot ---------- */
+$('#year').textContent = new Date().getFullYear();
+$('#arcWatchBtn').href = WATCH_URL;
+paintSoundBtn();
+
+function hideLoader(){
+  $('#loader').classList.add('hide');
+  setTimeout(() => softFocus($('#startBtn')), 400);
+}
+
+loadPuzzles().then(list => {
+  puzzles = list;
+  // Clamp to at least 1 so a clock set before launch still gets a playable case.
+  todayDayNumber = Math.max(1, dayNumberFor(today));
+  paintLanding();
+  $('#startBtn').addEventListener('click', () => openDay(todayDayNumber, false));
+  $('#landingArchiveBtn').addEventListener('click', () => openArchive(false));
+  $('#arcHomeBtn').addEventListener('click', goHome);
+  setTimeout(hideLoader, 450);
+}).catch(showLoadError);
+</script>
+</body>
+</html>

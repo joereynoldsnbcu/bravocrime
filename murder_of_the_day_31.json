@@ -1,0 +1,1617 @@
+{
+  "collection": "Murder of the Day - Logic Corrections",
+  "version": "1.4",
+  "generated": "2026-09-24",
+  "count": 22,
+  "note": "Replacement objects for the puzzles that failed the logic audit. Match on 'id' and replace the whole object inside the 'puzzles' array of murder_of_the_day_31.json. Suspect letters and killer letters are unchanged, so saved player results stay valid.",
+  "puzzles": [
+    {
+      "id": "MYS-004",
+      "day": 4,
+      "title": "The Ridge Above Sallow Wood",
+      "setting": "An estate shoot, autumn",
+      "method": "gunshot",
+      "structure": "positive_id",
+      "difficulty": 3,
+      "setup": "Sir Marcus Ely is found dead in his butt at the end of the second drive, shot from above and behind. The surgeon recovers shot from the ridge angle, not the valley. A single spent cartridge case lies on the ridge, and it is a blue paper case - an unusual load on that estate, where the keeper issues red.",
+      "facts": [
+        "The ridge is reached by one path through a wire fence whose top rail was tar-painted that morning and was still wet at noon.",
+        "The keeper's retriever was staked at the head of the ridge path. It is savage with strangers and silent with the household.",
+        "The beaters' line stood in open valley ground, in full view of the butts, from three until four, and the keeper walked the line with them the whole drive. Death occurred at 3:20.",
+        "Every gun's loads are booked out by the keeper at the gun room. The book is on the table."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Mr Haldane",
+          "role": "a guest, first time on the estate",
+          "statement": "I walked up towards the ridge for a better view and thought better of it. The dog wouldn't have me near the path."
+        },
+        {
+          "id": "B",
+          "name": "Rowe",
+          "role": "the keeper",
+          "statement": "Up at the fence in the morning with the tar pot, then down to the valley. I walked the beaters' line with the men from three until the drive ended."
+        },
+        {
+          "id": "C",
+          "name": "Julian Ely",
+          "role": "the dead man's brother",
+          "statement": "I was in the beaters' line the whole drive - forty men can say so. I shoot the keeper's red cases like everyone else."
+        },
+        {
+          "id": "D",
+          "name": "Captain Nash",
+          "role": "guest, an old friend",
+          "statement": "I stayed in my butt the entire drive and never climbed anywhere. I bring my own loads - I've shot blue paper cases for twenty years and won't change now."
+        }
+      ],
+      "solution": {
+        "killer": "D",
+        "name": "Captain Nash",
+        "key_contradiction": "The only cartridge case on the ridge is a blue paper case, and Nash is the only man on the estate who shoots them - by his own statement.",
+        "reasoning": "This one is not solved by breaking an alibi but by matching the physical evidence. Nash volunteers the detail that convicts him, assuming nobody would look uphill.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "sentinel_witness",
+            "why": "A stranger turned back by the staked retriever at the only path up."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "Walking the beaters' line in open valley ground with the men from three, in full view of the butts when the shot was fired."
+          },
+          {
+            "id": "C",
+            "type": "human_witness",
+            "why": "In the beaters' line in open ground, visible to the butts and to forty men."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "unique ammunition volunteered in his own statement",
+        "exoneration_types": [
+          "sentinel_witness",
+          "human_witness",
+          "human_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-007",
+      "day": 7,
+      "title": "Below the Weir",
+      "setting": "A canal town, late summer",
+      "method": "drowning",
+      "structure": "broken_alibi",
+      "difficulty": 2,
+      "setup": "Lock-keeper Wilfred Sharn is pulled from the pool below the weir at 8:30 p.m. He was a powerful swimmer. The surgeon finds grip marks on both shoulders and says he was put in and kept in. The sluice had been wound fully open, filling the pool with white water.",
+      "facts": [
+        "The sluice wheel is heavy enough to need two men, or one very strong one, and it was opened that evening.",
+        "The towpath gate is locked at dusk and the only key hangs in the lock-house.",
+        "Anyone wading in to the pool is soaked to the chest; the bank shelves away at once and there is no shallow.",
+        "Sharn's terrier was loose on the towpath. It is friendly to the town and murderous towards bargemen it does not know.",
+        "When the constable came he looked at every man's clothes. Bligh, who says he went in after Sharn, is wet to the knee and bone dry above it."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Ada Sharn",
+          "role": "the widow, a slight woman",
+          "statement": "The sluice wheel? I've never been able to shift it an inch, and Wilf would tell you so himself if he could."
+        },
+        {
+          "id": "B",
+          "name": "Ned Corley",
+          "role": "lengthsman",
+          "statement": "I was at the Anchor from seven with the landlord and half the bar, and I stayed till the shouting started."
+        },
+        {
+          "id": "C",
+          "name": "Hector Bligh",
+          "role": "the assistant keeper, who raised the alarm",
+          "statement": "I saw him in the water, went straight in and dragged him to the bank, but he was gone. I'd have given anything to reach him sooner."
+        },
+        {
+          "id": "D",
+          "name": "Josiah Pike",
+          "role": "a bargeman off the Leicester run, new to the cut",
+          "statement": "I never got past the gate - that dog of his had me back aboard in a second, and I stopped there."
+        }
+      ],
+      "solution": {
+        "killer": "C",
+        "name": "Hector Bligh",
+        "key_contradiction": "The pool has no shallow, so anyone who went in is soaked to the chest - yet the constable found Bligh wet only to the knee. He never entered the water he claims to have waded into.",
+        "reasoning": "A false rescue is the oldest way to explain wet clothes, but Bligh overplayed it: he claimed the rescue without getting wet enough to support it. He is also the only man strong enough and near enough to have opened the sluice.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "physical_capacity",
+            "why": "Cannot move the sluice wheel, which was opened that evening."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "In a full public bar from seven until the alarm."
+          },
+          {
+            "id": "D",
+            "type": "sentinel_witness",
+            "why": "A stranger driven off the towpath by the terrier, which knows the town and not him."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "claimed a rescue his dry clothes disprove",
+        "exoneration_types": [
+          "physical_capacity",
+          "human_witness",
+          "sentinel_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-008",
+      "day": 8,
+      "title": "The Red Lamp",
+      "setting": "A portrait photographer's studio, 1930s",
+      "method": "asphyxiation by fumes",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Photographer Laurence Dray is found dead in his darkroom at 11 p.m., killed by fumes from two chemicals that should never share a bench. The ventilator grille has been stuffed with a rag from the outside. Death came quickly, between 10:15 and 10:45.",
+      "facts": [
+        "The darkroom is lit only by a red safelight. Under it, colour cannot be distinguished at all - everything reads as red, grey or black.",
+        "The retouching room has no door of its own onto the passage; the only way out of it is through the studio, past the printer at his lights.",
+        "Fixer splashes from that bench leave a black stain on the skin that will not wash off for days.",
+        "The ventilator grille is on the outside passage wall, eight feet up. There is no stool in the passage."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Mrs Dray",
+          "role": "the widow, a short woman",
+          "statement": "I came to the passage looking for him about half ten and went away again. I never so much as reached the door."
+        },
+        {
+          "id": "B",
+          "name": "Bernard Croft",
+          "role": "business partner",
+          "statement": "I looked in on him just before the end. He was slumped at the bench and I could see by the red lamp that his lips had gone blue - that's when I ran for help."
+        },
+        {
+          "id": "C",
+          "name": "Clara Nye",
+          "role": "the retoucher",
+          "statement": "At my desk in the next room all evening. There's no door my side - I'd have had to walk out through the studio with Victor standing there, and I never did."
+        },
+        {
+          "id": "D",
+          "name": "Victor Sable",
+          "role": "the printer",
+          "statement": "In the studio setting lights, and nobody came through from the retouching room all evening. My hands are as clean as yours - I've not touched the fixer bench in a fortnight."
+        }
+      ],
+      "solution": {
+        "killer": "B",
+        "name": "Bernard Croft",
+        "key_contradiction": "Under a red safelight no colour can be told apart. Nobody sees blue lips in that room.",
+        "reasoning": "Croft invented a discovery to explain his presence and to fix the time of death conveniently late. He described a colour the safelight cannot show.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "physical_capacity",
+            "why": "The grille is eight feet up in a passage with nothing to stand on; a short woman could not have stuffed it."
+          },
+          {
+            "id": "C",
+            "type": "physical_barrier",
+            "why": "The retouching room opens only into the studio, and the printer watched that doorway all evening; she never reached the passage."
+          },
+          {
+            "id": "D",
+            "type": "trace_transfer",
+            "why": "Mixing those chemicals means working the fixer bench, which stains the skin black for days. His hands are clean."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "saw a colour a red safelight cannot show",
+        "exoneration_types": [
+          "physical_capacity",
+          "physical_barrier",
+          "trace_transfer"
+        ]
+      }
+    },
+    {
+      "id": "MYS-013",
+      "day": 13,
+      "title": "The Organ Loft",
+      "setting": "A cathedral, evening",
+      "method": "fall from height (pushed)",
+      "structure": "broken_alibi",
+      "difficulty": 3,
+      "setup": "Organist Hubert Lang falls forty feet from the organ loft rail to the nave floor and dies at 8:20 p.m. The rail is sound; the verger notes Lang's music still open on the desk and his shoes neatly beside the stool - he was not playing when he went over.",
+      "facts": [
+        "The organ is hand-blown. Without the bellows boy at the lever it cannot make a sound, and the boy went home at seven.",
+        "The loft stair is closed by a gate padlocked at seven; the verger holds the only key and opened it for no one.",
+        "The verger tolls the curfew bell in the south transept from eight until half past, and it was heard ringing without a break by the whole close until the moment of the alarm.",
+        "The loft is also reachable by the triforium walk from the north tower, which is open."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Thomas Reed",
+          "role": "the verger",
+          "statement": "I was at the curfew rope in the south transept from eight. The whole close heard that bell going and it never stopped till they called me."
+        },
+        {
+          "id": "B",
+          "name": "Canon Estcourt",
+          "role": "precentor",
+          "statement": "In the chapter house with the dean from half past seven. We were at the accounts until the noise brought us out."
+        },
+        {
+          "id": "C",
+          "name": "Miss Rainer",
+          "role": "a pupil of Lang's",
+          "statement": "I waited for my lesson in the south porch. That stair gate was padlocked and I'd no way up it."
+        },
+        {
+          "id": "D",
+          "name": "Dr Fenwick",
+          "role": "assistant organist",
+          "statement": "I was in the north tower going through some manuscripts. I could hear him playing above me until nearly twenty past - it was how I knew all was well."
+        }
+      ],
+      "solution": {
+        "killer": "D",
+        "name": "Dr Fenwick",
+        "key_contradiction": "The organ is hand-blown and the bellows boy left at seven. The instrument could not sound at all after that.",
+        "reasoning": "Fenwick used music to prove Lang alive and himself innocently elsewhere. He was in the north tower, which is the one place with an open route to the loft - and the organ was silent the whole time.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "sentinel_witness",
+            "why": "The curfew bell rang unbroken from eight until the alarm, and it cannot ring without a man on the rope."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "With the dean in the chapter house from 7:30 to the alarm."
+          },
+          {
+            "id": "C",
+            "type": "access_control",
+            "why": "The stair gate was padlocked at seven and the verger opened it for no one; she had no other route."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "heard an instrument that could not sound",
+        "exoneration_types": [
+          "sentinel_witness",
+          "human_witness",
+          "access_control"
+        ]
+      }
+    },
+    {
+      "id": "MYS-033",
+      "day": 33,
+      "title": "The Glasshouse Furnace",
+      "setting": "A bottle glassworks, night shift",
+      "method": "burns from molten glass",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Gaffer Reuben Slyde dies at the furnace mouth at 2 a.m. from a ladle of molten metal tipped across him. The ladle handle is found across the floor, and the surgeon says the metal came from in front and above - it was thrown, not spilled.",
+      "facts": [
+        "The main furnace was drawn down for the weekly stir at midnight. Between midnight and two the metal in it was too stiff to pour and the glory hole was dead dark.",
+        "The teaser keeps a small reheating pot at the back of the furnace which stays workable through the stir. Only the teaser tends it, and it holds about one ladle.",
+        "The ladle shank is bound in wet clay that comes off grey on the hands and dries to a crust that will not brush away.",
+        "The blowing team of four worked the second chair together from one o'clock; no chair can be worked with a man short."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Vera Slyde",
+          "role": "the gaffer's sister",
+          "statement": "I've never signed for a tool in my life and the foreman's book will tell you so. I waited in the yard."
+        },
+        {
+          "id": "B",
+          "name": "Josiah Peck",
+          "role": "teaser, who tends the fire",
+          "statement": "I was at the furnace all night, and I saw the glory hole burning bright at half one with Reuben working his metal - he seemed right enough then."
+        },
+        {
+          "id": "C",
+          "name": "Martha Gell",
+          "role": "annealer",
+          "statement": "I was at the lehr the whole shift. There's not a smear of that grey clay on my hands and you'd see it a mile off if there were."
+        },
+        {
+          "id": "D",
+          "name": "Abel Dunn",
+          "role": "servitor on the second chair",
+          "statement": "On the chair from one with the other three. Take one man off a chair and the work stops dead - they'd have hollered in a minute."
+        }
+      ],
+      "solution": {
+        "killer": "B",
+        "name": "Josiah Peck",
+        "key_contradiction": "The main furnace was drawn down at midnight and the glory hole was dead dark until two. Nothing was burning bright at half past one and Slyde could not have been working metal.",
+        "reasoning": "Peck is the teaser and knew the fire was down, yet he described a working furnace to place Slyde alive and himself innocently attending. The one ladle of workable metal in the building that night was in the small reheating pot at the back - which only the teaser tends.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "access_control",
+            "why": "The tool rack is padlocked and signed for; her name is not in the foreman's book."
+          },
+          {
+            "id": "C",
+            "type": "trace_transfer",
+            "why": "The wet clay on the ladle shank marks any hand that lifts it, and hers is clean."
+          },
+          {
+            "id": "D",
+            "type": "human_witness",
+            "why": "Working a four-man chair from one o'clock, where a single absence halts the work."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "described a furnace that was cold",
+        "exoneration_types": [
+          "access_control",
+          "trace_transfer",
+          "human_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-034",
+      "day": 34,
+      "title": "The Breaking-Down Saw",
+      "setting": "A timber sawmill",
+      "method": "staged saw accident",
+      "structure": "positive_id",
+      "difficulty": 4,
+      "setup": "Sawyer Cal Menzies is found across the breaking-down bench at 7 a.m., apparently having fallen into the blade. The doctor disagrees: the sawcut was made after death, and the true injury is a crushed windpipe. Someone strangled him and laid him on the bench.",
+      "facts": [
+        "The mill runs from a single line shaft. The saw cannot turn unless the shaft clutch is thrown, and the clutch lever is at the engine house.",
+        "The engine house door is locked and the key is on the engineman's belt; he starts up at 6:45 each morning.",
+        "A leather drive belt was recently re-laced with copper wire, and the wire ends snag and cut the hands of anyone who handles it. The belt had to be shifted onto the saw pulley by hand to make the cut.",
+        "The marks on Menzies' throat were made by a hand missing the little finger - the span and the gap are unmistakable."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Wilf Crane",
+          "role": "yardman, who lost a little finger to a bandsaw",
+          "statement": "I was about the yard early, same as always. That bench is the sawyer's business, not mine."
+        },
+        {
+          "id": "B",
+          "name": "Tom Pell",
+          "role": "engineman",
+          "statement": "I hold the engine house key and I started her up at quarter to seven, as I do every morning of my life. And I've my ten fingers, which is more than one man in this yard can say."
+        },
+        {
+          "id": "C",
+          "name": "Dorcas Pym",
+          "role": "office clerk",
+          "statement": "I've never been near that belt. It's laced with wire and it takes the skin off - my hands are unmarked and you may look."
+        },
+        {
+          "id": "D",
+          "name": "Harriet Vane",
+          "role": "timber buyer",
+          "statement": "I have all my fingers and you may count them. I came at seven and found the gate still chained."
+        }
+      ],
+      "solution": {
+        "killer": "A",
+        "name": "Wilf Crane",
+        "key_contradiction": "The throat marks were left by a hand with no little finger, and Crane lost his to a bandsaw.",
+        "reasoning": "No alibi is broken here; the body names the killer. The saw wound was dressing, applied after the fact, and the hand that did the actual killing left a signature that cannot be laid on afterwards.",
+        "exonerations": [
+          {
+            "id": "B",
+            "type": "material_evidence",
+            "why": "He has his ten fingers by his own account, so the hand that left the marks is not his."
+          },
+          {
+            "id": "C",
+            "type": "trace_transfer",
+            "why": "Shifting the wire-laced belt cuts the hands, and hers are unmarked."
+          },
+          {
+            "id": "D",
+            "type": "material_evidence",
+            "why": "A full hand of fingers; the marks on the throat are not hers."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "handprint matched to a missing finger",
+        "exoneration_types": [
+          "material_evidence",
+          "trace_transfer",
+          "material_evidence"
+        ]
+      }
+    },
+    {
+      "id": "MYS-038",
+      "day": 38,
+      "title": "The Property Revolver",
+      "setting": "A film studio sound stage",
+      "method": "gunshot",
+      "structure": "positive_id",
+      "difficulty": 4,
+      "setup": "Leading man Dominic Vail is shot dead during a take at 3 p.m. The property revolver, which should have held blanks, had one live round in the chamber. The armourer loads the gun at the property table and it sits there under a cloth until the call.",
+      "facts": [
+        "The live round is a soft-nosed hunting cartridge of a calibre the studio does not stock and has never bought - the property book records every round in the building.",
+        "The continuity girl's chair is bolted to the camera platform twenty feet from the property table. She cannot reach the table without crossing the lit set in front of the whole unit, and she never did.",
+        "The armourer's cabinet is locked and the key is on his person.",
+        "The table is freshly french-polished each morning and still tacky at noon; it takes a print and holds it."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Marguerite Vail",
+          "role": "the actor's wife, a studio dresser",
+          "statement": "I was in wardrobe the whole morning. There's no polish on my hands, and that table marks anyone who so much as leans on it."
+        },
+        {
+          "id": "B",
+          "name": "Roy Tull",
+          "role": "armourer",
+          "statement": "The cabinet key never leaves me, and every round in this studio is written in my book. There's not a soft-nosed cartridge on the lot."
+        },
+        {
+          "id": "C",
+          "name": "Colonel Hardy",
+          "role": "technical adviser, a retired big-game shot",
+          "statement": "I advise on the shooting scenes and I keep my own sporting rifle and its cartridges in my rooms, as I have for thirty years. I never touched the property table."
+        },
+        {
+          "id": "D",
+          "name": "Sylvia Marne",
+          "role": "continuity",
+          "statement": "I'm bolted to that camera platform twenty feet off. To reach the table I'd have had to walk across a lit set with forty people watching, and I never left my chair."
+        }
+      ],
+      "solution": {
+        "killer": "C",
+        "name": "Colonel Hardy",
+        "key_contradiction": "The fatal round is a soft-nosed hunting cartridge of a calibre the studio has never stocked - and Hardy is the one man on the lot who keeps sporting ammunition of his own.",
+        "reasoning": "This is solved by tracing the round rather than breaking a story. Hardy volunteers the fact that convicts him, assuming the property book would be blamed before his own rooms were searched.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "trace_transfer",
+            "why": "The tacky polish on the table marks anyone who touches it, and her hands are clean."
+          },
+          {
+            "id": "B",
+            "type": "material_evidence",
+            "why": "The property book accounts for every round in the building, and none matches the one that was fired."
+          },
+          {
+            "id": "D",
+            "type": "physical_barrier",
+            "why": "Fixed to the camera platform twenty feet away, unable to reach the table without crossing a lit set in front of the unit."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "ammunition traced to a private supply",
+        "exoneration_types": [
+          "trace_transfer",
+          "material_evidence",
+          "physical_barrier"
+        ]
+      }
+    },
+    {
+      "id": "MYS-039",
+      "day": 39,
+      "title": "The Lime Pit",
+      "setting": "A tannery",
+      "method": "drowning in a lime pit",
+      "structure": "broken_alibi",
+      "difficulty": 3,
+      "setup": "Foreman tanner Obadiah Frett is found in number four lime pit at 6 p.m. The pit is eight feet deep and the surgeon finds bruising across the shoulders. Frett was a heavy man and the pit walls are sheer.",
+      "facts": [
+        "Number four was drained and refilled at three o'clock, and the fresh lime liquor is so caustic that anything dipped into it is bleached white within minutes - cloth and skin alike.",
+        "The pit yard is behind a gate that is barred at five, and the bar is drawn only by the yard foreman.",
+        "Pushing a fifteen-stone man over the coping requires standing and lifting; the coping is chest-high on a short person.",
+        "The beam house crew of three worked the hides together from four o'clock without a break.",
+        "Roke's sleeve is bleached to the elbow. The arm and hand inside it are unburned and unmarked."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Lemuel Vast",
+          "role": "hide buyer",
+          "statement": "I came to the gate at half five and it was barred. I waited outside until the shouting started."
+        },
+        {
+          "id": "B",
+          "name": "Amos Pyle",
+          "role": "beam house hand",
+          "statement": "The three of us were at the hides from four and none of us off the beam. You cannot work a hide alone."
+        },
+        {
+          "id": "C",
+          "name": "Judith Frett",
+          "role": "the foreman's daughter, a short woman",
+          "statement": "That coping stands at my chest. I could not have tipped my father over it if I had all day to try."
+        },
+        {
+          "id": "D",
+          "name": "Silas Roke",
+          "role": "currier",
+          "statement": "I reached in to my elbow trying to get hold of him - my sleeve's as white as a sheet, look at it - but he was gone under before I could grip him."
+        }
+      ],
+      "solution": {
+        "killer": "D",
+        "name": "Silas Roke",
+        "key_contradiction": "Fresh lime bleaches skin as readily as cloth. Roke's sleeve is white to the elbow but the arm inside it is unmarked, so no arm was ever in that pit.",
+        "reasoning": "A false rescue is his cover for being at the pit side. He dipped a sleeve to support the story but never put his arm in, and caustic lime does not spare skin that a soaked cuff has touched.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "access_control",
+            "why": "Left outside a gate barred at five, which only the yard foreman draws."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "On the beam with two others from four, where a hide cannot be worked single-handed."
+          },
+          {
+            "id": "C",
+            "type": "physical_capacity",
+            "why": "The coping is chest-high on her; she could not lift a fifteen-stone man over it."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "claimed a reach the lime would have burned",
+        "exoneration_types": [
+          "access_control",
+          "human_witness",
+          "physical_capacity"
+        ]
+      }
+    },
+    {
+      "id": "MYS-048",
+      "day": 48,
+      "title": "Under the Big Top",
+      "setting": "A travelling circus",
+      "method": "fall from a trapeze",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Flyer Aurelio Sanz falls to his death during the evening performance at 9 p.m. His trapeze rope had been cut three-quarters through above the bar - a slow cut made with a blade, and the rigger's own inspection puts it after seven o'clock, when the ropes were last sound.",
+      "facts": [
+        "The safety net was taken down at seven for re-roping and was not back up when Sanz went on; the ring was open beneath him all evening.",
+        "The house opened at half past seven, so the cut was made in the half hour between seven and the doors.",
+        "The rigging is reached by one rope ladder, and the ladder's sides were freshly whitened that afternoon; the whiting comes off on the hands.",
+        "Everyone on the ground was at work from seven, and the circus keeps to its calls to the minute."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Mira Sanz",
+          "role": "the flyer's wife, an equestrienne",
+          "statement": "I was in the horse lines from seven getting the liberty horses dressed, with two grooms working beside me the whole half hour."
+        },
+        {
+          "id": "B",
+          "name": "Luca Vero",
+          "role": "catcher",
+          "statement": "In the dressing wagon from seven with the other flyers. Four of us were in there rosining up and none of us went out."
+        },
+        {
+          "id": "C",
+          "name": "Stefan Roth",
+          "role": "rigger",
+          "statement": "I went up and looked over every rope at half seven and the net was strung tight beneath me the whole time, so there was no danger in it."
+        },
+        {
+          "id": "D",
+          "name": "Otto Braun",
+          "role": "bandmaster",
+          "statement": "We rehearsed the new galop from seven until the doors, twelve of us in the ring. You would notice a bandmaster missing before you noticed anything else."
+        }
+      ],
+      "solution": {
+        "killer": "C",
+        "name": "Stefan Roth",
+        "key_contradiction": "The net was taken down at seven for re-roping and never went back up. It was not strung beneath anyone at half past seven.",
+        "reasoning": "Roth needed an innocent reason for having been in the rigging with a knife in the one half hour the cut could have been made, and he dressed it up with a safety net that was lying on the ground. Whitened hands would not betray a rigger, so the lie he needed was about the net - and that is the lie that catches him.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "human_witness",
+            "why": "In the horse lines with two grooms for the whole of the half hour in which the rope was cut."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "Shut in the dressing wagon with three other flyers from seven until the doors."
+          },
+          {
+            "id": "D",
+            "type": "human_witness",
+            "why": "Rehearsing in the ring with twelve musicians across the same half hour."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "described a safety net that was down",
+        "exoneration_types": [
+          "human_witness",
+          "human_witness",
+          "human_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-050",
+      "day": 50,
+      "title": "The Inrun",
+      "setting": "A ski jumping hill",
+      "method": "fatal fall from sabotage",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Jumper Kasper Lund is killed on the landing slope at 2 p.m. A steel wire had been strung an inch above the inrun track and taken his skis from under him at the takeoff. The wire was anchored into the timber on both sides with screw eyes, and the fresh dye on the ice is smeared where the anchors went in.",
+      "facts": [
+        "The inrun track was closed for re-icing from noon and the water crew worked it until half past one. Nobody could be on the track during that work without being seen by all four of them.",
+        "The wire went in after the crew came off, in the half hour between half past one and the jump.",
+        "Driving screw eyes into frozen timber needs a brace and sustained two-handed force.",
+        "The fresh track ice is laid with a dye to show the line; it marks gloves and trousers blue at a touch and does not wash out. Alme is blue to the knees."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Petter Kvam",
+          "role": "chief judge",
+          "statement": "I was in the tower from noon and the stair rope was across it. Nobody came up and I did not go down."
+        },
+        {
+          "id": "B",
+          "name": "Ingrid Sol",
+          "role": "a rival's coach, arm in a sling",
+          "statement": "My arm has been in a sling since the fall at Holmenkollen. I could not hold a brace, let alone turn one."
+        },
+        {
+          "id": "C",
+          "name": "Sven Alme",
+          "role": "hill foreman",
+          "statement": "The dye on me is from walking the inrun at one o'clock to check the ice, as I do every meeting. That is all it is."
+        },
+        {
+          "id": "D",
+          "name": "Marta Lund",
+          "role": "the jumper's sister",
+          "statement": "I stood at the outrun the whole morning. There's not a mark of that blue on me anywhere."
+        }
+      ],
+      "solution": {
+        "killer": "C",
+        "name": "Sven Alme",
+        "key_contradiction": "The water crew had the track from noon to half past one and would have seen anyone on it. Alme could not have walked the inrun at one o'clock - so the dye on his knees was picked up in the only other window there was, after the crew came off.",
+        "reasoning": "Alme could not hide the dye, so he invented an inspection to explain it. The crew's presence makes his hour impossible, which leaves the half hour in which the wire went in.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "access_control",
+            "why": "In the glassed tower with the stair roped off, which only he may draw and did not."
+          },
+          {
+            "id": "B",
+            "type": "physical_capacity",
+            "why": "A slung arm cannot work a brace into frozen timber."
+          },
+          {
+            "id": "D",
+            "type": "trace_transfer",
+            "why": "Anchoring the wire beside fresh dyed ice marks anyone who does it, and she is unmarked."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "explained a stain with a walk the crew disproves",
+        "exoneration_types": [
+          "access_control",
+          "physical_capacity",
+          "trace_transfer"
+        ]
+      }
+    },
+    {
+      "id": "MYS-058",
+      "day": 58,
+      "title": "The Tenor Bell",
+      "setting": "A monastery bell tower",
+      "method": "crushing by a swinging bell",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Brother Anselm is found crushed in the bell chamber at 6 a.m., struck by the tenor bell as it swung. The bell had been left set mouth upwards, and someone released the stay while he was working at the clapper.",
+      "facts": [
+        "The tenor's clapper was taken out on Thursday for re-bushing and was still away at the wheelwright's; without a clapper the bell cannot sound at all.",
+        "The tower stair is closed by a door which the sacristan locks after Compline, and the key hangs in the sacristy under his hand. The abbot alone carries a master key to every door in the house.",
+        "The stay rope is dressed with a dark wax that marks the palms and will not wash away for days.",
+        "The community sang Vigils together in the choir from half past four until half past five, and the cantor takes the roll."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Brother Felix",
+          "role": "sacristan",
+          "statement": "I locked the stair after Compline and the key has hung in the sacristy since. Nobody asked me for it."
+        },
+        {
+          "id": "B",
+          "name": "Brother Hugh",
+          "role": "cellarer",
+          "statement": "I was in choir for Vigils with the whole community and the cantor's roll will show it."
+        },
+        {
+          "id": "C",
+          "name": "Brother Paul",
+          "role": "novice",
+          "statement": "There is no wax on my hands. Handle that stay rope and it marks you for days together."
+        },
+        {
+          "id": "D",
+          "name": "Abbot Gervase",
+          "role": "abbot",
+          "statement": "I woke at five and heard the tenor sounding, which I took for Anselm testing his work, so I turned over and thought no more of it."
+        }
+      ],
+      "solution": {
+        "killer": "D",
+        "name": "Abbot Gervase",
+        "key_contradiction": "The tenor's clapper was away at the wheelwright's since Thursday. The bell could not sound at all, so nobody heard it at five.",
+        "reasoning": "Gervase used the bell to place Anselm alive and at work while he himself lay innocently in bed. He is also the one man who did not need the sacristan's key, carrying a master to every door in the house.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "access_control",
+            "why": "The stair was locked after Compline and his key never left the sacristy."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "In choir for Vigils, recorded on the cantor's roll."
+          },
+          {
+            "id": "C",
+            "type": "trace_transfer",
+            "why": "The waxed stay rope marks the palms for days, and his are clean."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "heard a bell with no clapper",
+        "exoneration_types": [
+          "access_control",
+          "human_witness",
+          "trace_transfer"
+        ]
+      }
+    },
+    {
+      "id": "MYS-063",
+      "day": 63,
+      "title": "The Oast House",
+      "setting": "A Kentish hop farm at drying",
+      "method": "sulphur fume asphyxiation",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Dryer Nathaniel Suke is found dead on the drying floor of the oast at 4 a.m. A tray of brimstone had been set burning beneath the hair cloth and the loading door wedged shut, filling the kiln with sulphur. He had been drying a load all night.",
+      "facts": [
+        "The cowl at the head of the kiln turns with the wind to draw the fumes off. It had been chained still on Tuesday for the carpenter, and chained it stayed all week.",
+        "The brimstone stowage is locked. One key is on the farm bailiff's ring; a second hangs in the drying room for the dryers, who burn brimstone every night of the season.",
+        "The kiln steps are dusted thick with yellow hop powder that clings to boots and clothing and shows on anything dark for days.",
+        "The picking families sat up at the hopper huts round one fire from midnight; the fire is in the middle of the ring of huts and anyone leaving it is seen."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Hannah Suke",
+          "role": "the dryer's sister",
+          "statement": "I sat at the hopper fire from midnight with thirty others. You cannot slip out of that ring of huts without a dozen people watching you go."
+        },
+        {
+          "id": "B",
+          "name": "Silas Meech",
+          "role": "under-dryer",
+          "statement": "I came up at two and stood below the kiln. The cowl was swinging round in the wind, drawing beautifully, so I knew the load was taking no harm and I went to my bed."
+        },
+        {
+          "id": "C",
+          "name": "Reuben Waite",
+          "role": "the farm bailiff",
+          "statement": "The stowage key is on my ring, I'll not deny it. But look at my boots - not a speck of the yellow on them, and there's no crossing that floor without it."
+        },
+        {
+          "id": "D",
+          "name": "Mercy Dann",
+          "role": "pole puller",
+          "statement": "I've never had a stowage key in my hand. One's on the bailiff's ring and the other hangs in the drying room, and I've no business in either place."
+        }
+      ],
+      "solution": {
+        "killer": "B",
+        "name": "Silas Meech",
+        "key_contradiction": "The cowl was chained still on Tuesday for the carpenter and never released. It could not have been swinging round drawing at two in the morning.",
+        "reasoning": "Meech invented a healthy kiln to account for his visit and to show he had no cause for alarm. As under-dryer he had the drying room key and handled brimstone nightly, and the chained cowl is what made the killing possible - with no draw, the fumes had nowhere to go.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "human_witness",
+            "why": "At the hopper fire from midnight, ringed by huts where an absence is seen at once."
+          },
+          {
+            "id": "C",
+            "type": "trace_transfer",
+            "why": "The yellow hop powder marks boots for days and his are clean, despite the key."
+          },
+          {
+            "id": "D",
+            "type": "access_control",
+            "why": "Neither stowage key is hers to take - one on the bailiff's ring, one in a drying room she has no call to enter."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "watched a cowl that was chained still",
+        "exoneration_types": [
+          "human_witness",
+          "trace_transfer",
+          "access_control"
+        ]
+      }
+    },
+    {
+      "id": "MYS-072",
+      "day": 72,
+      "title": "The Humane Killer",
+      "setting": "A country veterinary surgery",
+      "method": "captive bolt, staged as an accident",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Veterinary surgeon Bartholomew Fane is found dead in his surgery at 8 p.m., killed by his own humane killer, which lies beside his hand. The coroner's officer notes the instrument must be held hard against the skull to fire, and that the wound is at the back of the head.",
+      "facts": [
+        "The surgery's one horse, the practice cob, went dead lame on Monday and could not be put to the trap; the trap has not left the yard all week.",
+        "The killer's cartridges are of a common pattern carried by every veterinary surgeon in the county, though Fane's own are kept under lock with the drug cupboard key on his chain.",
+        "The surgery floor is washed down with a carbolic that leaves a distinctive smell on clothing for hours.",
+        "The village constable stood at the surgery gate from seven discussing a licence, facing the only door."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Susannah Fane",
+          "role": "the surgeon's wife",
+          "statement": "I was at the rectory from six with the vicar's wife and two others, going over the flower rota, and I did not leave until they came to fetch me."
+        },
+        {
+          "id": "B",
+          "name": "Ned Pilbeam",
+          "role": "kennel man",
+          "statement": "I was at the gate with the constable from seven, talking over my licence. He never took his eyes off me nor the door."
+        },
+        {
+          "id": "C",
+          "name": "Dr Milton Crake",
+          "role": "a neighbouring practitioner",
+          "statement": "I drove out in the practice trap at six to a calving at Hurst Farm and was gone the best part of two hours. The cob went well enough."
+        },
+        {
+          "id": "D",
+          "name": "Ruth Adey",
+          "role": "dispenser",
+          "statement": "There's no carbolic on me. Cross that surgery floor and you carry the smell home with you."
+        }
+      ],
+      "solution": {
+        "killer": "C",
+        "name": "Dr Milton Crake",
+        "key_contradiction": "The practice cob went dead lame on Monday and the trap has not left the yard all week. There was no drive to Hurst Farm at six.",
+        "reasoning": "Crake invented a journey to put himself miles off, not knowing - or forgetting - that the only horse in the yard could not be put to. As a veterinary surgeon he carried cartridges of his own and needed nobody's key. The staging as an accident is undone by the wound at the back of the head, and his alibi by a lame horse.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "human_witness",
+            "why": "At the rectory with three others from six until she was fetched."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "At the gate with the constable, who faced the only door from seven."
+          },
+          {
+            "id": "D",
+            "type": "trace_transfer",
+            "why": "The carbolic wash marks clothing for hours, and she carries none."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "claimed a drive a lame horse made impossible",
+        "exoneration_types": [
+          "human_witness",
+          "human_witness",
+          "trace_transfer"
+        ]
+      }
+    },
+    {
+      "id": "MYS-073",
+      "day": 73,
+      "title": "The Safety Iron",
+      "setting": "An opera house, after the performance",
+      "method": "crushing by a fire curtain",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Stage director Emil Rast is found crushed beneath the safety iron at 11:30 p.m. The great fire curtain had come down on him at the proscenium line under its own enormous weight.",
+      "facts": [
+        "The stage boxes were struck and sheeted on Monday for the plasterers, and their doors have been screwed shut since; nobody has sat in one all week.",
+        "The iron can be released two ways: by the lever in the prompt corner, which sits behind a glass front under the fireman's key, or by knocking out the holding pin on the fly rail, which stands open to anyone backstage. The glass was found whole and the pin was found on the floor.",
+        "The proscenium floor was chalked that evening for the ballet and the chalk lifts onto shoes and shows white until it is brushed off.",
+        "The orchestra were in the pit until the curtain at eleven, and the librarian counted the parts in from them at the rail afterwards."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Marta Selle",
+          "role": "wardrobe mistress",
+          "statement": "There's no chalk on my shoes. Walk that proscenium after they've marked it and you're white to the ankle."
+        },
+        {
+          "id": "B",
+          "name": "Anton Vey",
+          "role": "fireman on duty",
+          "statement": "The lever key is mine and the glass was whole when the house went dark. I'd stake my place on it."
+        },
+        {
+          "id": "C",
+          "name": "Gustav Pohl",
+          "role": "répétiteur",
+          "statement": "I was in the pit to the curtain at eleven and the librarian took my part off me at the rail directly after."
+        },
+        {
+          "id": "D",
+          "name": "Lotte Rast",
+          "role": "the director's wife, a singer",
+          "statement": "I sat in the second stage box from the interval to watch the last act, as I always do."
+        }
+      ],
+      "solution": {
+        "killer": "D",
+        "name": "Lotte Rast",
+        "key_contradiction": "The stage boxes were sheeted and screwed shut on Monday for the plasterers. Nobody sat in the second box that night or any night that week.",
+        "reasoning": "She needed a place from which she could have seen nothing and done nothing, and named a box that has been nailed up for days. The iron came down by the fly rail pin, which needs no key and stands open to anyone backstage - which is where she actually was.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "trace_transfer",
+            "why": "The chalked proscenium whitens any shoe that crosses it, and hers are clean."
+          },
+          {
+            "id": "B",
+            "type": "material_evidence",
+            "why": "His lever was never used - the glass in front of it is whole, and the iron fell by the pin instead."
+          },
+          {
+            "id": "C",
+            "type": "human_witness",
+            "why": "In the pit to the final curtain and checked in by the librarian immediately after."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "sat in a box that was sheeted and screwed shut",
+        "exoneration_types": [
+          "trace_transfer",
+          "material_evidence",
+          "human_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-075",
+      "day": 75,
+      "title": "The Flensing Deck",
+      "setting": "A shore whaling station",
+      "method": "flensing knife wound, staged as an accident",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Station manager Halvor Brekke is found on the flensing plan at 6 p.m. with a flensing knife wound, laid out as though he had slipped on the deck. The surgeon says the cut runs the wrong way for a fall and was made from behind.",
+      "facts": [
+        "The catcher Sørholm did not come alongside until seven that evening; the harbour log records her signal off the point at half past six and nothing before.",
+        "One flensing knife was left lying on the plan at the end of the morning's haul and was never returned to the store. It is the knife that killed him.",
+        "The plan runs with oil and blood that soaks into boot leather at once and is plain on anyone who has stood on it.",
+        "The try-works gang fed the cookers together from four, six of them, and the fires cannot be left."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Ingeborg Brekke",
+          "role": "the manager's wife",
+          "statement": "I was in the mess from four with the cook and two of the women, and none of us stirred until the shouting began."
+        },
+        {
+          "id": "B",
+          "name": "Lars Onstad",
+          "role": "try-works hand",
+          "statement": "At the cookers from four with five others. Those fires cannot be left for ten minutes together."
+        },
+        {
+          "id": "C",
+          "name": "Petter Roald",
+          "role": "flensing foreman",
+          "statement": "My boots are dry and clean. Stand on that plan a minute and the oil is through your leather and into your socks."
+        },
+        {
+          "id": "D",
+          "name": "Nils Haugen",
+          "role": "station clerk",
+          "statement": "I was up at the office and I saw the Sørholm come alongside at six and Halvor go down to meet her, same as he always did."
+        }
+      ],
+      "solution": {
+        "killer": "D",
+        "name": "Nils Haugen",
+        "key_contradiction": "The Sørholm did not signal off the point until half past six and came alongside at seven. She was not alongside at six and Brekke did not go down to meet her.",
+        "reasoning": "Haugen invented an arrival to place Brekke alive and walking about at six and himself watching from the office. The harbour log puts the catcher still at sea, and the knife he used was lying out on the plan where anyone could pick it up.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "human_witness",
+            "why": "In the mess with the cook and two others from four until the alarm."
+          },
+          {
+            "id": "B",
+            "type": "continuous_supervision",
+            "why": "At the cooker fires with five others, where nobody can be spared for ten minutes."
+          },
+          {
+            "id": "C",
+            "type": "trace_transfer",
+            "why": "The flensing plan soaks any boot that stands on it, and his are dry."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "witnessed a ship that had not yet arrived",
+        "exoneration_types": [
+          "human_witness",
+          "continuous_supervision",
+          "trace_transfer"
+        ]
+      }
+    },
+    {
+      "id": "MYS-093",
+      "day": 93,
+      "title": "The Retort House",
+      "setting": "A city gasworks retort house",
+      "method": "producer gas asphyxiation",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Works chemist Leonard Skeat is found dead on the retort bench at 4 a.m. A producer gas cock had been opened behind the bench and the ventilating louvre pinned shut from the stoking floor above. The gas is odourless where it issues and he never knew it was there.",
+      "facts": [
+        "Number two gasholder was drawn right down to its bottom lift on Tuesday for a leak search and has stood flat on the tank ever since; it is not visible above the retort house roof at all.",
+        "The producer cocks are behind a steel cover fastened with a key spanner. The shift engineer carries one on his belt and a second hangs in the works manager's office.",
+        "The stoking floor is reached only by a spiral stair whose foot is in sight of the weighbridge window, and the weighbridge man booked every man up and down it.",
+        "The charging machine must be worked continuously through the night by a man at the controller, and its note changes across the whole house the moment he stops."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Ezra Toft",
+          "role": "charging machine driver",
+          "statement": "I was at the controller all night. Stop that machine twenty seconds and every man in the house looks up."
+        },
+        {
+          "id": "B",
+          "name": "Cyril Vane",
+          "role": "works manager",
+          "statement": "I came across the yard about half three and looked up and saw number two standing full and high against the sky, so I knew the night's make was good, and I went on to my office."
+        },
+        {
+          "id": "C",
+          "name": "Walter Gribb",
+          "role": "shift engineer",
+          "statement": "I was at the retort bench the whole night with two stokers beside me drawing and charging, and neither of them was ever out of my sight nor I out of theirs."
+        },
+        {
+          "id": "D",
+          "name": "Martha Skeat",
+          "role": "the chemist's sister",
+          "statement": "The weighbridge man books every soul that goes up that stair and my name is not in his book. I never set foot on the stoking floor."
+        }
+      ],
+      "solution": {
+        "killer": "B",
+        "name": "Cyril Vane",
+        "key_contradiction": "Number two gasholder was drawn down to its bottom lift on Tuesday and has stood flat on the tank since. It could not be seen standing full and high against the sky at half past three.",
+        "reasoning": "Vane wanted an innocent reason for crossing the yard in the small hours, and dressed it with a holder that has been lying flat for days. The second cover spanner hangs in his own office, so the one man whose story is impossible is also the one man besides the engineer who could open those cocks.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "sentinel_witness",
+            "why": "The charging machine's note betrays any pause, and it never faltered."
+          },
+          {
+            "id": "C",
+            "type": "human_witness",
+            "why": "At the retort bench with two stokers in constant view of one another all night."
+          },
+          {
+            "id": "D",
+            "type": "access_control",
+            "why": "Not booked up the stair by the weighbridge man, who records every passage."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "saw a gasholder that was lying flat",
+        "exoneration_types": [
+          "sentinel_witness",
+          "human_witness",
+          "access_control"
+        ]
+      }
+    },
+    {
+      "id": "MYS-097",
+      "day": 97,
+      "title": "The Steeping Cistern",
+      "setting": "A maltings",
+      "method": "drowning in a steeping cistern",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Head maltster Obadiah Fenn is found drowned in number one steep at 5 a.m., under four feet of water and swelling barley. The cistern's safety rail had been unshipped and stood against the wall, and there are bruises across his shoulders.",
+      "facts": [
+        "The steep floor is shut off from the growing floor by a double door of four-inch oak, hung so for the sake of the temperature. With it closed, a shout from one side cannot be made out as words on the other - the men signal by knocking.",
+        "The kiln floor is a perforated tile that rings underfoot and carries the sound of any step to the whole building.",
+        "The malt shovels and the rail pins are kept in a locked press. The maltster carries one key and the under-maltster a second, for the night work.",
+        "Unshipping the rail means standing on the cistern coping, which is slimed with a green growth that marks boots and will not scrub off for days."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Reuben Salt",
+          "role": "under-maltster",
+          "statement": "I was on the growing floor at four and I heard Obadiah call out through the doors that he wanted more water on number one, so I knew he was about his work."
+        },
+        {
+          "id": "B",
+          "name": "Dorcas Vell",
+          "role": "barley sorter",
+          "statement": "There's no green on my boots. Stand on that coping a minute and it marks you for a week."
+        },
+        {
+          "id": "C",
+          "name": "Kezia Fenn",
+          "role": "the maltster's daughter",
+          "statement": "The pins are in the press and there are but two keys to it, my father's and the under-maltster's. I have never had either in my hand in my life."
+        },
+        {
+          "id": "D",
+          "name": "Amos Pring",
+          "role": "kiln man",
+          "statement": "I was on the kiln floor the whole night and that tile rings like a drum. Every step I took, the whole house could hear."
+        }
+      ],
+      "solution": {
+        "killer": "A",
+        "name": "Reuben Salt",
+        "key_contradiction": "The four-inch oak doors between the steep and the growing floor will not carry words at all - which is why the men signal by knocking. No call through them could be made out at four o'clock.",
+        "reasoning": "Salt placed Fenn alive and working by reporting a conversation the doors made impossible, and put himself innocently on the far side of them. He is also the only man besides the dead one with a key to the press where the rail pins are kept.",
+        "exonerations": [
+          {
+            "id": "B",
+            "type": "trace_transfer",
+            "why": "The slimed coping marks boots for a week, and hers are clean."
+          },
+          {
+            "id": "C",
+            "type": "access_control",
+            "why": "Both keys to the rail pins are accounted for and neither has ever been hers."
+          },
+          {
+            "id": "D",
+            "type": "sentinel_witness",
+            "why": "The ringing kiln tile carries every step to the whole building."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "made out words through a door that carries none",
+        "exoneration_types": [
+          "trace_transfer",
+          "access_control",
+          "sentinel_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-102",
+      "day": 102,
+      "title": "The Sorting Frame",
+      "setting": "A country post office",
+      "method": "suffocation with a mailbag",
+      "structure": "broken_alibi",
+      "difficulty": 3,
+      "setup": "Sub-postmaster Ernest Vye is found dead behind the sorting frame at 8 p.m., suffocated with a canvas mailbag drawn over his head and its neck pulled tight. The office had been shut to the public since six.",
+      "facts": [
+        "The last collection from the office pillar is at a quarter past five, and the box is cleared and sealed at that hour; nothing whatever can be posted into it afterwards until the morning clearance.",
+        "The office back door is bolted top and bottom from inside and the bolts were found shot home.",
+        "The counter flap beside the grille was standing open, as Vye always left it while he sorted, so anyone once inside the shop could walk straight through to the frame.",
+        "The telegraph boy sat on the step outside the front door from half past six waiting to be paid, facing the street and the door."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Hector Rand",
+          "role": "village schoolmaster",
+          "statement": "I came down about seven and posted my letters to the county office, and then walked home by the green."
+        },
+        {
+          "id": "B",
+          "name": "Alice Vye",
+          "role": "the postmaster's sister",
+          "statement": "I was at choir practice in the chapel from six with the whole choir and the organist, and we did not break up until they came for me."
+        },
+        {
+          "id": "C",
+          "name": "Tom Dell",
+          "role": "telegraph boy",
+          "statement": "I sat on that step from half six waiting on my money, looking up the street the whole time. Nobody went in past me."
+        },
+        {
+          "id": "D",
+          "name": "Mercy Loom",
+          "role": "the postmaster's assistant",
+          "statement": "The back door was bolted top and bottom and it was bolted when they found him. I'd no way in at all."
+        }
+      ],
+      "solution": {
+        "killer": "A",
+        "name": "Hector Rand",
+        "key_contradiction": "The last collection is at a quarter past five and the box is cleared and sealed at that hour. Nothing could be posted at seven o'clock.",
+        "reasoning": "Rand needed an ordinary errand to explain why he had been at the office at all that evening, and chose the one errand the sealed box made impossible. He had been let in at the front before the telegraph boy sat down, and the counter flap stood open for anyone already inside.",
+        "exonerations": [
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "At chapel choir practice with the whole choir and the organist from six."
+          },
+          {
+            "id": "C",
+            "type": "continuous_supervision",
+            "why": "Sat facing the front door from half past six and saw nobody enter."
+          },
+          {
+            "id": "D",
+            "type": "physical_barrier",
+            "why": "The back door was bolted top and bottom from the inside and found so."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "posted letters after the box was sealed",
+        "exoneration_types": [
+          "human_witness",
+          "continuous_supervision",
+          "physical_barrier"
+        ]
+      }
+    },
+    {
+      "id": "MYS-109",
+      "day": 109,
+      "title": "The Repository Stalls",
+      "setting": "A horse repository",
+      "method": "strangled with a lunge rein",
+      "structure": "broken_alibi",
+      "difficulty": 3,
+      "setup": "Repository manager Foster Quill is found strangled with a lunge rein in the end stall at 8 p.m., two hours after the evening sale. The stall door had been closed on him from the outside.",
+      "facts": [
+        "The big grey gelding that stood in the end stall was knocked down at the four o'clock sale and boxed away by the buyer's man before five; the stall stood empty from that hour.",
+        "The rein that killed him had been left hanging on the end stall door after the sale and was never carried back to the tack room, so it lay ready to any hand that came down the line.",
+        "The stall floor is bedded on a fresh peat moss that prints a boot sharply and had not been turned since the sale.",
+        "The auctioneer's rostrum and the sale ring stand in the open and the clerk sat at the rostrum entering the sheets until half past eight."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Percy Dann",
+          "role": "yard man",
+          "statement": "There's no peat print of mine in that stall. It's freshly bedded and it takes a boot like a plaster cast."
+        },
+        {
+          "id": "B",
+          "name": "Hester Quill",
+          "role": "the manager's sister",
+          "statement": "I was in the counting house with the cashier from six, squaring the day's money, and neither of us left it until the alarm."
+        },
+        {
+          "id": "C",
+          "name": "Arthur Snelling",
+          "role": "horse dealer",
+          "statement": "I went down the line about seven to have another look at the big grey in the end stall, and Foster was there rugging him up. A grand sort of horse."
+        },
+        {
+          "id": "D",
+          "name": "Kate Orme",
+          "role": "sale clerk",
+          "statement": "I was at the rostrum entering the sheets until half past eight, in the open where anyone in the yard could see me."
+        }
+      ],
+      "solution": {
+        "killer": "C",
+        "name": "Arthur Snelling",
+        "key_contradiction": "The grey was sold at four and boxed away before five. The end stall stood empty from that hour, so there was no horse there at seven and nothing to rug up.",
+        "reasoning": "Snelling wanted an unremarkable reason for walking down to the end stall and for finding Quill alive in it. He furnished it with a horse that had left the premises two hours earlier - in a yard whose own sale sheet records the time - and the rein was hanging on the door where anyone could take it.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "trace_transfer",
+            "why": "The fresh peat bedding prints every boot, and his are not in it."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "In the counting house with the cashier from six until the alarm."
+          },
+          {
+            "id": "D",
+            "type": "human_witness",
+            "why": "At the rostrum in open view until half past eight."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "described a horse that had been sold and boxed away",
+        "exoneration_types": [
+          "trace_transfer",
+          "human_witness",
+          "human_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-112",
+      "day": 112,
+      "title": "The Swing Span",
+      "setting": "A river swing bridge and toll house",
+      "method": "crushed in the bridge pit",
+      "structure": "broken_alibi",
+      "difficulty": 4,
+      "setup": "Bridgemaster Walter Croom is found crushed in the roller pit at 7 p.m. beneath the swinging span, which was turned on him while he greased the path. The turning engine is worked from the cabin at the bridge centre.",
+      "facts": [
+        "The span stood open to the river from half past five until seven for the timber barges to pass up on the tide, and while it is open the roadway across it is broken and nobody can walk over.",
+        "Croom left the cabin standing open while he worked below, as he always did when greasing the path, so the turning lever lay ready to anyone already out on the span.",
+        "The roller path grease is a heavy black tallow that comes off on boots and clothing and lasts for days.",
+        "The toll house window faces the land approach and the toll keeper sat at it taking money from half past four."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Sarah Croom",
+          "role": "the bridgemaster's daughter",
+          "statement": "I sat in the toll house with Jem from half past four, out of the wind, and I never went out onto the bridge at all."
+        },
+        {
+          "id": "B",
+          "name": "Emma Vasey",
+          "role": "harbour clerk",
+          "statement": "There's no roller grease on me and it stops for days. I've never been down in that pit in my life."
+        },
+        {
+          "id": "C",
+          "name": "Nathaniel Roke",
+          "role": "timber merchant",
+          "statement": "I walked across the bridge about six to see my barges up the reach, and Walter gave me good evening from the cabin as I went over."
+        },
+        {
+          "id": "D",
+          "name": "Jem Tull",
+          "role": "toll keeper",
+          "statement": "I was at the toll window from half four taking money off the carts, facing the approach the whole time."
+        }
+      ],
+      "solution": {
+        "killer": "C",
+        "name": "Nathaniel Roke",
+        "key_contradiction": "The span stood open to the river from half past five until seven. With the bridge open the roadway is broken and nobody could walk across it at six.",
+        "reasoning": "Roke needed a reason to have been out at the bridge centre and a word with Croom to put him alive at six. He described a crossing the open span made impossible - and it was his own barges the bridge was opened for, which is what put him out there on the span with an empty cabin beside him.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "human_witness",
+            "why": "In the toll house with the keeper from half past four, never out on the bridge."
+          },
+          {
+            "id": "B",
+            "type": "trace_transfer",
+            "why": "The roller path tallow marks anyone in the pit for days, and she is clean."
+          },
+          {
+            "id": "D",
+            "type": "continuous_supervision",
+            "why": "At the toll window facing the approach from half past four."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "walked across a bridge that was swung open",
+        "exoneration_types": [
+          "human_witness",
+          "trace_transfer",
+          "continuous_supervision"
+        ]
+      }
+    },
+    {
+      "id": "MYS-116",
+      "day": 116,
+      "title": "The Turntable Road",
+      "setting": "A locomotive roundhouse",
+      "method": "crushed on a locomotive turntable",
+      "structure": "broken_alibi",
+      "difficulty": 3,
+      "setup": "Shed foreman Isaac Pell is found crushed at 2 a.m. between the turntable deck and the pit wall. The table had been turned on him while he was down in the pit clearing the centre, and it is turned by a vacuum motor worked from the deck.",
+      "facts": [
+        "The shed stores issuer was off sick from the Monday and the stores window stood shuttered all week, with any man wanting oil or waste having to sign a slip and take it himself.",
+        "The running foreman's cabin stood unlocked that night with the motor handle on its hook inside, because Pell himself was at work on the table.",
+        "The turntable pit runs with a black oil sludge that soaks boots and trouser legs at once and stays for days.",
+        "The shed gate keeps a book and the timekeeper books every person in and out; the fitters worked a boiler washout together in the far bay from midnight, five of them, where the job cannot go on a man short."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Sam Rudd",
+          "role": "cleaner",
+          "statement": "I went up to the stores window about one and the issuer gave me out a can of oil and a bundle of waste, and I was back at my engine directly."
+        },
+        {
+          "id": "B",
+          "name": "Wilf Croke",
+          "role": "night fireman",
+          "statement": "There's no pit sludge on my boots and you cannot stand in that pit a minute without it going through your leather."
+        },
+        {
+          "id": "C",
+          "name": "Dolly Pell",
+          "role": "the foreman's sister",
+          "statement": "I was never booked in at the gate. The timekeeper has his book and you'll find no name of mine in it tonight."
+        },
+        {
+          "id": "D",
+          "name": "Ned Cray",
+          "role": "fitter",
+          "statement": "On the washout in the far bay from midnight with four others. You cannot do that job short-handed."
+        }
+      ],
+      "solution": {
+        "killer": "A",
+        "name": "Sam Rudd",
+        "key_contradiction": "The stores issuer had been off sick since Monday and the window stood shuttered all week. Nobody was there at one in the morning to give out oil and waste.",
+        "reasoning": "Rudd needed a short, dull errand to account for being away from his engine at the hour Pell went into the pit. He chose one that required a man who had not been in the building all week, and the foreman's cabin stood open with the handle on the hook.",
+        "exonerations": [
+          {
+            "id": "B",
+            "type": "trace_transfer",
+            "why": "The pit sludge soaks boots at once and his are dry."
+          },
+          {
+            "id": "C",
+            "type": "access_control",
+            "why": "Never booked in at the gate, where the timekeeper records everyone who enters."
+          },
+          {
+            "id": "D",
+            "type": "human_witness",
+            "why": "On a five-man washout that cannot proceed a man short."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "was served by a storeman who was off sick",
+        "exoneration_types": [
+          "trace_transfer",
+          "access_control",
+          "human_witness"
+        ]
+      }
+    },
+    {
+      "id": "MYS-119",
+      "day": 119,
+      "title": "Under the Covers",
+      "setting": "A suburban rugby league ground",
+      "method": "asphyxiation under a rolled pitch cover",
+      "structure": "broken_alibi",
+      "difficulty": 3,
+      "setup": "Ground manager Bert Callow is found at 8 p.m. beneath the great rolled pitch cover at the dead ball line, smothered. The cover weighs half a ton on its drum and had been run over him while he worked at the roller pins.",
+      "facts": [
+        "The afternoon's match was abandoned at half time and the ground cleared; no second half was played and the crowd was out of the gates by four.",
+        "Callow had the winch handle out of the shed and shipped in the drum, being at work on the pins, so it stood ready to anyone who came up behind him.",
+        "Running the drum takes two men on the winch or one very strong one.",
+        "The turnstiles print a paper roll of every admission and the rolls were taken off at four when the ground cleared."
+      ],
+      "suspects": [
+        {
+          "id": "A",
+          "name": "Joyce Callow",
+          "role": "the manager's wife, a slight woman",
+          "statement": "That winch takes two men on it. I have tried to turn it for a joke and never shifted the drum an inch."
+        },
+        {
+          "id": "B",
+          "name": "Merv Doyle",
+          "role": "assistant groundsman",
+          "statement": "I was down at the Leagues club from four with a dozen of them and never left the bar till they rang me."
+        },
+        {
+          "id": "C",
+          "name": "Kath Slee",
+          "role": "club secretary",
+          "statement": "I was never through the turnstiles at all - they took the rolls off at four and my name is nowhere on them."
+        },
+        {
+          "id": "D",
+          "name": "Ray Tullo",
+          "role": "club committeeman",
+          "statement": "I stopped on to watch the second half after the crowd thinned out, and a poor game it was too. I never went near the covers."
+        }
+      ],
+      "solution": {
+        "killer": "D",
+        "name": "Ray Tullo",
+        "key_contradiction": "The match was abandoned at half time and the ground cleared by four. There was no second half to stop on and watch.",
+        "reasoning": "Tullo wanted an ordinary afternoon at the football to explain why he was still on the ground long after everyone else had gone. He described watching a half that was never played, and the winch handle was already shipped in the drum where Callow had left it.",
+        "exonerations": [
+          {
+            "id": "A",
+            "type": "physical_capacity",
+            "why": "The winch needs two men and she cannot shift the drum."
+          },
+          {
+            "id": "B",
+            "type": "human_witness",
+            "why": "At the Leagues club bar with a dozen others from four."
+          },
+          {
+            "id": "C",
+            "type": "access_control",
+            "why": "The turnstile rolls record every admission and hers is not on them."
+          }
+        ]
+      },
+      "design_notes": {
+        "killer_tell_type": "watched a half that was never played",
+        "exoneration_types": [
+          "physical_capacity",
+          "human_witness",
+          "access_control"
+        ]
+      }
+    }
+  ]
+}
